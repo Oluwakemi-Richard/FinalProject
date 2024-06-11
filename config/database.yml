@@ -1,0 +1,40 @@
+# default: &default
+#   adapter: postgresql
+#   encoding: unicode
+#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#   url: <%= ENV['DATABASE_URL'] %>
+
+# development:
+#   <<: *default
+#   database: ems_database
+#   schema_search_path: 'public'
+
+# test:
+#   <<: *default
+#   database: ems_database_test
+#   schema_search_path: 'public'
+
+# production:
+#   <<: *default
+#   database: ems_database
+#   schema_search_path: 'public'
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV['DATABASE_URL'] %>
+
+development:
+  <<: *default
+  database: ems_database_development
+
+test:
+  <<: *default
+  database: ems_database_test
+
+production:
+  <<: *default
+  database: ems_database_production
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV['DATABASE_URL'] %>
