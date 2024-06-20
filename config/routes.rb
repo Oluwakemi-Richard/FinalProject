@@ -1,4 +1,7 @@
 # Rails.application.routes.draw do
+  # namespace :api do
+  #   get 'attendances/index'
+  # end
 #   namespace :api do
 #     resources :details, only: [:index, :show]
 #   end
@@ -13,12 +16,31 @@
 # end
 # config/routes.rb
 # Rails.application.routes.draw do
+  # namespace :api do
+  #   get 'attendances/index'
+  # end
 #   namespace :api do
 #     resources :details, only: [:index, :show, :create]
 #   end
 # end
+# Rails.application.routes.draw do
+#   namespace :api do
+#     resources :employees
+#   end
+# end
+# config/routes.rb
+
 Rails.application.routes.draw do
   namespace :api do
+    # Define routes for attendances controller
+    resources :attendances
+    #, only: [:index, :show, :create, :update, :destroy]
+
+    # Define routes for employees controller
     resources :employees
+    get 'payrolls/calculate', to: 'payrolls#calculate'
   end
+
+  # Additional routes can be defined outside the namespace if needed
 end
+

@@ -1,4 +1,3 @@
-# module Api
 class Api::EmployeesController < ApplicationController
     before_action :set_employee, only: [:show, :update, :destroy]
   
