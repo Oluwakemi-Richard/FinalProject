@@ -29,6 +29,10 @@ import Attendance from './components/Attendance';
 import Payroll from './components/Payroll';
 import Appraisal from './components/Appraisal';
 import ViewEmployee from './components/ViewEmployee';
+import ViewDetails from './components/ViewDetails';
+import ViewShifts from './components/ViewShifts';
+import LeaveRequest from './components/LeaveRequest';
+import ShiftAssignment from './components/ShiftAssignment';
 
 const App = () => {
   return (
@@ -47,6 +51,10 @@ const App = () => {
                 <Route path="/payroll" element={<Payroll />} />
                 <Route path="/appraisal" element={<Appraisal />} />
                 <Route path="/view-employee" element={<ViewEmployee />} />
+                <Route path="/view-details" element={<ViewDetails />} />
+                <Route path="/view-shifts" element={<ViewShifts />} />
+                <Route path="/leave-request" element={<LeaveRequest />} />
+                <Route path="/shift-assignment" element={<ShiftAssignment />} />
               </Routes>
             </Layout>
           }

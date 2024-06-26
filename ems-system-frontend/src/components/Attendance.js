@@ -61,8 +61,6 @@ const Attendance = () => {
             <th>Staff Name</th>
             <th>Shift Date</th>
             <th>Assigned Shift</th>
-            <th>Check In</th>
-            <th>Check Out</th>
             <th>Time Worked</th>
           </tr>
         </thead>
@@ -72,8 +70,6 @@ const Attendance = () => {
               <td>{attendance.staff_name}</td>
               <td>{attendance.shift_date}</td>
               <td>{attendance.assigned_shift}</td>
-              <td>{attendance.check_in}</td>
-              <td>{attendance.check_out}</td>
               <td>{attendance.time_worked}</td>
             </tr>
           ))}
