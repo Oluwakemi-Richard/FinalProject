@@ -23,6 +23,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import LandingPage from './pages/LandingPage';
 import Dashboard from './components/Dashboard';
+import Portal from './components/Portal';
 import Employees from './components/Employees';
 import EmployeeRegistration from './components/EmployeeRegistration';
 import Attendance from './components/Attendance';
@@ -33,6 +34,7 @@ import ViewDetails from './components/ViewDetails';
 import ViewShifts from './components/ViewShifts';
 import LeaveRequest from './components/LeaveRequest';
 import ShiftAssignment from './components/ShiftAssignment';
+import PendingLeaves from './components/PendingLeaves';
 
 const App = () => {
   return (
@@ -45,6 +47,7 @@ const App = () => {
             <Layout>
               <Routes>
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/employee-portal" element={<Portal />} />
                 <Route path="/employees" element={<Employees />} />
                 <Route path="/employee-registration" element={<EmployeeRegistration />} />
                 <Route path="/attendance" element={<Attendance />} />
@@ -55,6 +58,7 @@ const App = () => {
                 <Route path="/view-shifts" element={<ViewShifts />} />
                 <Route path="/leave-request" element={<LeaveRequest />} />
                 <Route path="/shift-assignment" element={<ShiftAssignment />} />
+                <Route path="/pending-leaves" element={<PendingLeaves />} />
               </Routes>
             </Layout>
           }

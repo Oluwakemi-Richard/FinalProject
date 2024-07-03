@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_26_113819) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_30_171526) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "appraisals", force: :cascade do |t|
+    t.string "appraised_by"
+    t.date "appraisal_date"
+    t.jsonb "questions"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "employee_id"
+    t.string "appraisal_month"
+    t.integer "appraisal_year"
+  end
 
   create_table "attendances", force: :cascade do |t|
     t.string "staff_name"
@@ -112,6 +124,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_113819) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "appraisals", "employees"
   add_foreign_key "attendances", "shifts"
   add_foreign_key "leaves", "employees"
   add_foreign_key "payrolls", "employees"

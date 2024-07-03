@@ -1,4 +1,3 @@
-# app/models/shift.rb
 class Shift < ApplicationRecord
     belongs_to :employee, foreign_key: :employee_number, primary_key: :employee_number
   

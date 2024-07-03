@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee: one
+  appraised_by: MyString
+  appraisal_date: 2024-06-27
+  questions: 
+  notes: MyText
+
+two:
+  employee: two
+  appraised_by: MyString
+  appraisal_date: 2024-06-27
+  questions: 
+  notes: MyText

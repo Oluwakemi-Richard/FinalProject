@@ -41,7 +41,7 @@
 #     end
 #   end
 # end
-# app/controllers/api/payrolls_controller.rb
+
 module Api
   class PayrollsController < ApplicationController
     def calculate

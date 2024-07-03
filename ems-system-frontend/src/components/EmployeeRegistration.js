@@ -36,7 +36,7 @@ const Employees = () => {
     event.preventDefault();
     axios.post('http://localhost:3000/api/employees', { employee: formData })
       .then(response => {
-        fetchEmployees(); // Refresh the list of employees after a new one is added
+        fetchEmployees(); 
         setFormData({
           name: '',
           position: '',

@@ -1,21 +1,9 @@
-// import React from 'react';
-// import ShiftAssignment from './ShiftAssignment';
-
-// const Dashboard = () => (
-//   <div>
-//     <h1>Dashboard</h1>
-//     <p>Dashboard in progress</p>
-//     <ShiftAssignment />
-//   </div>
-// );
-
-// export default Dashboard;
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../styles/Dashboard.css';
 
-const Dashboard = () => {
+const Portal = () => {
   const user = {
     firstName: 'Oluwakemi',
     lastName: 'Richard',
@@ -39,12 +27,10 @@ const Dashboard = () => {
               </div>
               <p>Here you can manage various tasks.</p>
               <div className="dashboard-links">
-              <Link to="/employee-registration" className="dashboard-link generate-payroll">Register Employee</Link>
-                <Link to="/shift-assignment" className="dashboard-link assign-shifts">Assign Shifts</Link>
-                <Link to="/payroll" className="dashboard-link generate-payroll">Generate Payroll</Link>
-                <Link to="/attendance" className="dashboard-link check-notifications">Track Attendance</Link>
-                <Link to="/appraisal" className="dashboard-link appraisal">Appraisal</Link>
-                <Link to="/pending-leaves" className="dashboard-link assign-shifts">View Leave Requests</Link>
+                <Link to="/view-details" className="dashboard-link assign-shifts">View Details</Link>
+                <Link to="/view-shifts" className="dashboard-link generate-payroll">View Shifts</Link>
+                <Link to="/leave-request" className="dashboard-link check-notifications">Leave Request</Link>
+                {/* <Link to="/appraisal" className="dashboard-link appraisal">Appraisal</Link> */}
               </div>
             </Card.Body>
           </Card>
@@ -54,4 +40,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Portal;
