@@ -6,7 +6,7 @@ ruby "3.2.3"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
 # gem 'rack-cors'
 # Gemfile
-gem 'rack-cors', require: 'rack/cors'
+gem 'rack-cors'
 
 gem 'dotenv-rails', groups: [:development, :test]
 

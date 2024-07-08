@@ -57,7 +57,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Auth.css';
 
-const SignUp = ({ onSignInClick }) => {
+const Register = ({ onSignInClick }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -107,5 +107,5 @@ const SignUp = ({ onSignInClick }) => {
   );
 };
 
-export default SignUp;
+export default Register;
 

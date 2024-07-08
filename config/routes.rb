@@ -109,8 +109,11 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  authenticated :user do
-    namespace :api do
+  namespace :api do
+    # Add route for authentication status outside of the authenticated block
+    get 'auth/status', to: 'auth#status'
+
+    authenticated :user do
       resources :employees do
         member do
           get 'available_months', to: 'employees#available_months'
@@ -159,9 +162,6 @@ Rails.application.routes.draw do
           get :calculate
         end
       end
-
-      # Add route for authentication status
-      get 'auth/status', to: 'auth#status'
     end
   end
 

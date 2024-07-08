@@ -39,11 +39,9 @@
 
 // export default LandingPage;
 
-// LandingPage.js
 import React, { useState } from 'react';
 import SignIn from '../components/SignIn';
 import Register from '../components/Register';
-//import '../styles/LandingPage.css';
 
 const LandingPage = () => {
   const [showSignUp, setShowSignUp] = useState(false);

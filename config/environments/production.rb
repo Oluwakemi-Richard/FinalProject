@@ -87,4 +87,9 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+   # Set the default URL options for the production environment
+   config.action_mailer.default_url_options = { host: 'https://finalproject-nydd.onrender.com' }
+   config.middleware.use ActionDispatch::Cookies
+   config.middleware.use ActionDispatch::Session::CookieStore, key: '_final_project_session'
+ 
 end
