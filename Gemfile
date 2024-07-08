@@ -4,7 +4,9 @@ ruby "3.2.3"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
-gem 'rack-cors'
+# gem 'rack-cors'
+# Gemfile
+gem 'rack-cors', require: 'rack/cors'
 
 gem 'dotenv-rails', groups: [:development, :test]
 
@@ -13,6 +15,9 @@ gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
+
+#adding devise
+gem 'devise'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
