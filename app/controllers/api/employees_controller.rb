@@ -1,35 +1,42 @@
 class Api::EmployeesController < ApplicationController
-    before_action :set_employee, only: [:show, :update, :destroy]
-  
-    # GET /employees
-    # def index
-    #   @employees = Employee.all
-    #   render json: @employees
-    # end
-      # GET /employees
-    def index
-      # if params[:query]
-      #   @employees = Employee.where('name LIKE ?', "%#{params[:query]}%")
-      if params[:query].present?
-        @employees = Employee.search_by_name(params[:query])
-      else
-        @employees = Employee.all
-      end
-      render json: @employees
-    end
-  
-    # # GET /employees/:id
-    # def show
-    #   render json: @employee
-    # end
-     # GET /api/employees/:id
-     def show
-      employee = Employee.find(params[:id])
-      render json: employee
-    rescue ActiveRecord::RecordNotFound
-      render json: { error: 'Employee not found' }, status: :not_found
-    end
+  before_action :set_employee, only: [:show, :update, :destroy]
 
+  def index
+    if params[:query].present?
+      @employees = Employee.search(params[:query])
+    else
+      @employees = Employee.all
+    end
+    render json: @employees
+  end
+
+  def show
+    render json: @employee
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'Employee not found' }, status: :not_found
+  end
+
+  def create
+    @employee = Employee.new(employee_params)
+    if @employee.save
+      render json: @employee, status: :created
+    else
+      render json: @employee.errors.full_messages.first, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @employee.update(employee_params.except(:employee_number))
+      render json: @employee
+    else
+      render json: @employee.errors.full_messages.first, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @employee.destroy
+  end
+  
     # GET /api/employees/:employee_id/available_months
     def available_months
       employee = Employee.find(params[:id])
@@ -49,59 +56,18 @@ class Api::EmployeesController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       render json: { error: 'Employee not found' }, status: :not_found
     end
-  
-    # POST /employees
-    def create
-      @employee = Employee.new(employee_params)
-  
-      if @employee.save
-        render json: @employee, status: :created
-      else
-        render json: @employee.errors, status: :unprocessable_entity
-      end
-    end
-  
-    # PATCH/PUT /employees/:id
-    def update
-      if @employee.update(employee_params)
-        render json: @employee
-      else
-        render json: @employee.errors, status: :unprocessable_entity
-      end
-    end
-  
-    # DELETE /employees/:id
-    def destroy
-      @employee.destroy
-    end
-  
-    private
-  
-    # Use callbacks to share common setup or constraints between actions.
-    # def set_employee
-    #   @employee = Employee.find(params[:id])
-    # end
-  
-    # # Only allow a trusted parameter "white list" through.
-    # def employee_params
-    #   params.require(:employee).permit(
-    #     :name, :position, :employee_number, :department, :branch, 
-    #     :address, :phone_number, :email, :start_date, :gender, 
-    #     :date_of_birth, :salary
-    #   )
-    # end
 
-  # Use callbacks to share common setup or constraints between actions.
-    def set_employee
-      @employee = Employee.find(params[:id])
-    end
+  private
 
-    # Only allow a trusted parameter "white list" through.
-    def employee_params
-      params.require(:employee).permit(
-        :name, :position, :employee_number, :department, :branch, 
-        :address, :phone_number, :email, :start_date, :gender, 
-        :date_of_birth, :salary
-      )
-    end
+  def set_employee
+    @employee = Employee.find(params[:id])
   end
+
+  def employee_params
+    params.require(:employee).permit(
+      :name, :position, :employee_number, :department, :branch, 
+      :address, :phone_number, :email, :start_date, :gender, 
+      :date_of_birth, :salary
+    )
+  end
+end

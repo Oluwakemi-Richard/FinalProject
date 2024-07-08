@@ -10,6 +10,7 @@ const ViewEmployee = () => {
   const [selectedYear, setSelectedYear] = useState('');
   const [years, setYears] = useState([]);
   const [appraisals, setAppraisals] = useState([]);
+  const [questionsHeadings, setQuestionsHeadings] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const ViewEmployee = () => {
     try {
       const response = await axios.get(`http://localhost:3000/api/employees/${id}`);
       setEmployee(response.data);
-      setQuery('');
+      setQuery(response.data.name); // Set the query to the selected employee's name
       setSuggestions([]);
     } catch (error) {
       console.error('Error fetching employee data:', error);
@@ -54,8 +55,10 @@ const ViewEmployee = () => {
     if (employee && selectedYear) {
       try {
         const response = await axios.get(`http://localhost:3000/api/appraisals/${employee.id}/${selectedYear}`);
-        console.log(response);
         setAppraisals(response.data);
+        if (response.data.length > 0) {
+          setQuestionsHeadings(Object.keys(response.data[0].questions || {}));
+        }
       } catch (error) {
         console.error('Error fetching appraisals:', error);
       }
@@ -121,11 +124,9 @@ const ViewEmployee = () => {
               <tr>
                 <th>Month</th>
                 <th>Appraised By</th>
-                <th>Communication</th>
-                <th>Technical Skills</th>
-                <th>Teamwork</th>
-                <th>Problem Solving</th>
-                <th>Punctuality</th>
+                {questionsHeadings.map((heading) => (
+                  <th key={heading}>{heading.replace(/_/g, ' ')}</th>
+                ))}
                 <th>Average Score</th>
                 <th>Notes</th>
               </tr>
@@ -135,11 +136,9 @@ const ViewEmployee = () => {
                 <tr key={appraisal.id}>
                   <td>{new Date(2023, appraisal.appraisal_month - 1).toLocaleString('default', { month: 'long' })}</td>
                   <td>{appraisal.appraised_by}</td>
-                  <td>{appraisal.questions?.Communication || 'N/A'}</td>
-                  <td>{appraisal.questions?.Technical_Skills || 'N/A'}</td>
-                  <td>{appraisal.questions?.Teamwork || 'N/A'}</td>
-                  <td>{appraisal.questions?.Problem_Solving || 'N/A'}</td>
-                  <td>{appraisal.questions?.Punctuality || 'N/A'}</td>
+                  {questionsHeadings.map((heading) => (
+                    <td key={heading}>{appraisal.questions?.[heading] || 'N/A'}</td>
+                  ))}
                   <td>{calculateAverageScore(appraisal.questions)}</td>
                   <td>{appraisal.notes}</td>
                 </tr>

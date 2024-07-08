@@ -1,5 +1,3 @@
-/* Dashboard CSS */
-
 .content {
     padding: 20px;
   }
@@ -12,7 +10,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #007bff; /* Blue */
+    background-color: #007bff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,18 +42,18 @@
   }
   
   .assign-shifts {
-    background-color: #28a745; /* Green */
+    background-color: #28a745; 
   }
   
   .generate-payroll {
-    background-color: #007bff; /* Blue */
+    background-color: #007bff;
   }
   
   .check-notifications {
-    background-color: #ffc107; /* Yellow */
+    background-color: #ffc107;
   }
   
   .appraisal {
-    background-color: #dc3545; /* Red */
+    background-color: #dc3545;
   }
   

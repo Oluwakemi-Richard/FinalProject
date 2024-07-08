@@ -1,23 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
 const Layout = ({ children }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleNavbar = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <div className="layout-wrapper">
-      <Navbar bg="dark" variant="dark" className="navbar">
-        <Navbar.Brand as={Link} to="/">EMS</Navbar.Brand>
-        <Nav className="flex-column">
-          <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
-          <Nav.Link as={Link} to="/employee-registration">Employee Registration</Nav.Link>
-          <Nav.Link as={Link} to="/attendance">Attendance</Nav.Link>
-          <Nav.Link as={Link} to="/payroll">Payroll</Nav.Link>
-          <Nav.Link as={Link} to="/appraisal">Appraisal</Nav.Link>
-          <Nav.Link as={Link} to="/view-employee">View Employee</Nav.Link>
-          <Nav.Link as={Link} to="/view-details">View Details</Nav.Link>
-          <Nav.Link as={Link} to="/view-shifts">View Shifts</Nav.Link>
-        </Nav>
+      <Navbar bg="dark" variant="dark" expand="md" className="navbar" expanded={expanded}>
+        <Navbar.Brand as={Link} to="/" onClick={() => setExpanded(false)}>EMS</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={toggleNavbar} />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="flex-column">
+            <Nav.Link as={Link} to="/dashboard" onClick={() => setExpanded(false)}>Dashboard</Nav.Link>
+            <Nav.Link as={Link} to="/employee-portal" onClick={() => setExpanded(false)}>Portal</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
       <Container className="main-content">
         {children}

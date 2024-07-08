@@ -1,4 +1,3 @@
-// components/ViewDetails.js
 import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
@@ -9,7 +8,6 @@ const ViewDetails = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
 
   useEffect(() => {
-    // Fetch employee details for employee_number 'EMP123'
     const fetchDetails = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/details/1001');

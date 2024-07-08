@@ -1,15 +1,3 @@
-// import React from 'react';
-// import ShiftAssignment from './ShiftAssignment';
-
-// const Dashboard = () => (
-//   <div>
-//     <h1>Dashboard</h1>
-//     <p>Dashboard in progress</p>
-//     <ShiftAssignment />
-//   </div>
-// );
-
-// export default Dashboard;
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -43,7 +31,7 @@ const Dashboard = () => {
                 <Link to="/shift-assignment" className="dashboard-link assign-shifts">Assign Shifts</Link>
                 <Link to="/payroll" className="dashboard-link generate-payroll">Generate Payroll</Link>
                 <Link to="/attendance" className="dashboard-link check-notifications">Track Attendance</Link>
-                <Link to="/appraisal" className="dashboard-link appraisal">Appraisal</Link>
+                <Link to="/evaluation" className="dashboard-link appraisal">Appraisal</Link>
                 <Link to="/pending-leaves" className="dashboard-link assign-shifts">View Leave Requests</Link>
               </div>
             </Card.Body>

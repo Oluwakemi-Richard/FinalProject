@@ -32,7 +32,7 @@ const LeaveRequest = () => {
       setLeaves(response.data);
     } catch (error) {
       console.error('Error fetching leaves:', error);
-      setLeaves([]); // Handle no records case
+      setLeaves([]); // Handling no records case
     }
   };
 
@@ -74,7 +74,7 @@ const LeaveRequest = () => {
 
     while (currentDate <= endDate) {
       const dayOfWeek = currentDate.getDay();
-      if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Exclude weekends
+      if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Excluding weekends
         totalDays++;
       }
       currentDate.setDate(currentDate.getDate() + 1);
