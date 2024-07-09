@@ -1,11 +1,13 @@
 // import React, { useState } from 'react';
 // import axios from 'axios';
+// import { useNavigate } from 'react-router-dom';
 // import '../styles/Auth.css';
 
 // const Register = ({ onSignInClick }) => {
 //   const [email, setEmail] = useState('');
 //   const [password, setPassword] = useState('');
 //   const [passwordConfirmation, setPasswordConfirmation] = useState('');
+//   const navigate = useNavigate();
 
 //   const handleSignUp = async (e) => {
 //     e.preventDefault();
@@ -15,6 +17,7 @@
 //       });
 //       console.log(response.data);
 //       alert('Signed up successfully!');
+//       navigate('/dashboard');  // Redirect to dashboard
 //     } catch (error) {
 //       console.error('Error signing up', error);
 //       alert('Failed to sign up');
@@ -52,16 +55,18 @@
 
 // export default Register;
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Auth.css';
+import { AuthContext } from '../App';
 
 const Register = ({ onSignInClick }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const navigate = useNavigate();
+  const { setAuthenticated, setSessionCookie } = useContext(AuthContext);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -69,7 +74,8 @@ const Register = ({ onSignInClick }) => {
       const response = await axios.post('/users', {
         user: { email, password, password_confirmation: passwordConfirmation }
       });
-      console.log(response.data);
+      setSessionCookie(response.headers['set-cookie']);
+      setAuthenticated(true);
       alert('Signed up successfully!');
       navigate('/dashboard');  // Redirect to dashboard
     } catch (error) {
@@ -108,4 +114,3 @@ const Register = ({ onSignInClick }) => {
 };
 
 export default Register;
-
