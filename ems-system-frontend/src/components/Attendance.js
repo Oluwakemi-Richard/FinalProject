@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Table } from 'react-bootstrap';
 import axios from 'axios';
+import '../styles/Attendance.css';
 
 const Attendance = () => {
   const [attendances, setAttendances] = useState([]);
@@ -30,7 +31,7 @@ const Attendance = () => {
   };
 
   return (
-    <div>
+    <div className="attendance-container">
       <h1>Attendance</h1>
       <Form onSubmit={handleSearch}>
         <Form.Group controlId="staffName">
@@ -55,26 +56,28 @@ const Attendance = () => {
         </Button>
       </Form>
 
-      <Table striped bordered hover className="mt-4">
-        <thead>
-          <tr>
-            <th>Staff Name</th>
-            <th>Shift Date</th>
-            <th>Assigned Shift</th>
-            <th>Time Worked</th>
-          </tr>
-        </thead>
-        <tbody>
-          {attendances.map((attendance) => (
-            <tr key={attendance.id}>
-              <td>{attendance.staff_name}</td>
-              <td>{attendance.shift_date}</td>
-              <td>{attendance.assigned_shift}</td>
-              <td>{attendance.time_worked}</td>
+      <div className="table-responsive-custom">
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Staff Name</th>
+              <th>Shift Date</th>
+              <th>Assigned Shift</th>
+              <th>Time Worked</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {attendances.map((attendance) => (
+              <tr key={attendance.id}>
+                <td>{attendance.staff_name}</td>
+                <td>{attendance.shift_date}</td>
+                <td>{attendance.assigned_shift}</td>
+                <td>{attendance.time_worked}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </div>
   );
 };

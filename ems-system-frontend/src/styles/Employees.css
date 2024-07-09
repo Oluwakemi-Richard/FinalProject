@@ -1,0 +1,60 @@
+.table-responsive {
+    overflow-x: auto;
+  }
+  
+  .table thead th {
+    white-space: nowrap;
+  }
+  
+  .table tbody td {
+    white-space: nowrap;
+  }
+  
+  @media (max-width: 768px) {
+    .form-group {
+      margin-bottom: 1rem;
+    }
+  
+    .form-control {
+      width: 100%;
+    }
+  
+    .btn {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  
+    .table-responsive {
+      border: 0;
+    }
+  
+    .table thead {
+      display: none;
+    }
+  
+    .table tbody, .table tbody tr, .table tbody td {
+      display: block;
+      width: 100%;
+    }
+  
+    .table tbody tr {
+      margin-bottom: 1rem;
+    }
+  
+    .table tbody td {
+      text-align: right;
+      padding-left: 50%;
+      position: relative;
+    }
+  
+    .table tbody td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      width: 50%;
+      padding-left: 1rem;
+      text-align: left;
+      font-weight: bold;
+    }
+  }
+  

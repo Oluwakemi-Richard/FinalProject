@@ -203,6 +203,7 @@
 #   end
 # end
 
+
 Rails.application.routes.draw do
   root 'home#index'
 
@@ -224,7 +225,7 @@ Rails.application.routes.draw do
   namespace :api do
     get 'auth/status', to: 'auth#status'
 
-    authenticated :user do
+    # authenticated :user do
       resources :employees do
         member do
           get 'available_months', to: 'employees#available_months'
@@ -274,5 +275,6 @@ Rails.application.routes.draw do
         end
       end
     end
-  end
+  # end
 end
+

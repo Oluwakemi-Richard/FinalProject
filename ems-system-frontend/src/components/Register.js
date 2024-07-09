@@ -55,60 +55,81 @@
 
 // export default Register;
 
-import React, { useState, useContext } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import '../styles/Auth.css';
-import { AuthContext } from '../App';
+// // src/components/SignUp.js
 
-const Register = ({ onSignInClick }) => {
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const navigate = useNavigate();
-  const { setAuthenticated, setSessionCookie } = useContext(AuthContext);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setError('');
+
+    if (password !== passwordConfirmation) {
+      setError('Passwords do not match');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await axios.post('/users', {
-        user: { email, password, password_confirmation: passwordConfirmation }
+      await axios.post('/users', {
+        user: {
+          email,
+          password,
+          password_confirmation: passwordConfirmation,
+        },
       });
-      setSessionCookie(response.headers['set-cookie']);
-      setAuthenticated(true);
-      alert('Signed up successfully!');
-      navigate('/dashboard');  // Redirect to dashboard
+      alert('Sign up successful');
     } catch (error) {
-      console.error('Error signing up', error);
-      alert('Failed to sign up');
+      setError('Sign up failed');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="auth-container">
+    <div className="sign-up">
       <h2>Sign Up</h2>
-      <form onSubmit={handleSignUp}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password Confirmation"
-          value={passwordConfirmation}
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
-        />
-        <button type="submit">Sign Up</button>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Confirm Password</label>
+          <input
+            type="password"
+            value={passwordConfirmation}
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+            required
+          />
+        </div>
+        {error && <p className="error">{error}</p>}
+        <button type="submit" disabled={loading}>
+          {loading ? 'Signing Up...' : 'Sign Up'}
+        </button>
       </form>
-      <p onClick={onSignInClick}>Already have an account? Sign In</p>
     </div>
   );
 };

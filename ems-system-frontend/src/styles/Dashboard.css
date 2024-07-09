@@ -1,59 +1,82 @@
 .content {
-    padding: 20px;
-  }
-  
-  .content h2 {
-    margin-bottom: 20px;
-  }
-  
-  .profile-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #007bff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    font-weight: bold;
-    color: white;
-  }
-  
-  .initials {
-    color: white;
-  }
-  
-  .dashboard-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
+  padding: 20px;
+}
+
+.content h2 {
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #007bff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+}
+
+.initials {
+  color: white;
+}
+
+.dashboard-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center; /* Center the boxes */
+}
+
+.dashboard-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  flex: 1 1 calc(25% - 20px); /* Adjust the width of each box */
+  min-width: 150px; /* Ensure minimum width */
+  max-width: 200px; /* Ensure maximum width */
+  height: 100px; /* Fixed height for all boxes */
+}
+
+.assign-shifts {
+  background-color: #28a745;
+}
+
+.generate-payroll {
+  background-color: #007bff;
+}
+
+.check-notifications {
+  background-color: #ffc107;
+}
+
+.appraisal {
+  background-color: #dc3545;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
   .dashboard-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
+    flex: 1 1 calc(33.33% - 20px);
   }
-  
-  .assign-shifts {
-    background-color: #28a745; 
+}
+
+@media (max-width: 992px) {
+  .dashboard-link {
+    flex: 1 1 calc(50% - 20px);
   }
-  
-  .generate-payroll {
-    background-color: #007bff;
+}
+
+@media (max-width: 768px) {
+  .dashboard-link {
+    flex: 1 1 calc(100% - 20px);
   }
-  
-  .check-notifications {
-    background-color: #ffc107;
-  }
-  
-  .appraisal {
-    background-color: #dc3545;
-  }
-  
+}

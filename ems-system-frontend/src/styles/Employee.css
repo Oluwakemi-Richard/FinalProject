@@ -1,0 +1,58 @@
+/* Container for the entire page */
+.view-details-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title styling */
+  .view-details-container h1 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+    font-size: 2em;
+  }
+  
+  /* Card for details */
+  .details-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Each item in the details */
+  .details-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Label for the details */
+  .details-label {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  /* Value of the details */
+  .details-value {
+    color: #666;
+  }
+  
+  /* Loading and Error states */
+  .loading,
+  .error {
+    text-align: center;
+    font-size: 1.2em;
+    color: #d9534f; /* Error color */
+  }
+  
+  .loading {
+    color: #5bc0de; /* Loading color */
+  }
+  

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Tabs, Tab } from 'react-bootstrap';
+import { Container, Row, Col, Table, Button, Tabs, Tab } from 'react-bootstrap';
 import axios from 'axios';
+import '../App.css';
 
 const ViewShifts = () => {
   const [shifts, setShifts] = useState([]);
@@ -52,45 +53,51 @@ const ViewShifts = () => {
   };
 
   return (
-    <div>
-      <h1>{tab === 'upcoming' ? 'Upcoming Shifts' : tab === 'ongoing' ? 'Ongoing Shifts' : 'Past Shifts'}</h1>
-      <Tabs activeKey={tab} onSelect={(k) => setTab(k)} className="mb-3">
-        <Tab eventKey="upcoming" title="Upcoming Shifts"></Tab>
-        <Tab eventKey="ongoing" title="Ongoing Shifts"></Tab>
-        <Tab eventKey="past" title="Past Shifts"></Tab>
-      </Tabs>
-      {tab === 'ongoing' && shifts.length === 0 ? (
-        <p>You have no ongoing shifts</p>
-      ) : (
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Shift Date</th>
-              <th>Start Time</th>
-              <th>End Time</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {shifts.map(shift => (
-              <tr key={shift.id}>
-                <td>{shift.shift_date}</td>
-                <td>{shift.start_time}</td>
-                <td>{shift.end_time}</td>
-                <td>
-                  {!shift.checked_in && canCheckIn(shift) && (
-                    <Button variant="primary" onClick={() => handleCheckIn(shift.id)}>Check In</Button>
-                  )}
-                  {shift.checked_in && !shift.checked_out && canCheckOut(shift) && (
-                    <Button variant="danger" onClick={() => handleCheckOut(shift.id)}>Check Out</Button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      )}
-    </div>
+    <Container>
+      <Row>
+        <Col>
+          <h1>{tab === 'upcoming' ? 'Upcoming Shifts' : tab === 'ongoing' ? 'Ongoing Shifts' : 'Past Shifts'}</h1>
+          <Tabs activeKey={tab} onSelect={(k) => setTab(k)} className="mb-3 tabs-container">
+            <Tab eventKey="upcoming" title="Upcoming Shifts"></Tab>
+            <Tab eventKey="ongoing" title="Ongoing Shifts"></Tab>
+            <Tab eventKey="past" title="Past Shifts"></Tab>
+          </Tabs>
+          {tab === 'ongoing' && shifts.length === 0 ? (
+            <p>You have no ongoing shifts</p>
+          ) : (
+            <div className="table-responsive">
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Shift Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {shifts.map(shift => (
+                    <tr key={shift.id}>
+                      <td>{shift.shift_date}</td>
+                      <td>{shift.start_time}</td>
+                      <td>{shift.end_time}</td>
+                      <td className="button-container">
+                        {!shift.checked_in && canCheckIn(shift) && (
+                          <Button variant="primary" onClick={() => handleCheckIn(shift.id)}>Check In</Button>
+                        )}
+                        {shift.checked_in && !shift.checked_out && canCheckOut(shift) && (
+                          <Button variant="danger" onClick={() => handleCheckOut(shift.id)}>Check Out</Button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
+          )}
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

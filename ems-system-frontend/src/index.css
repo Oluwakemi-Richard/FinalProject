@@ -49,4 +49,8 @@ code {
     transform: rotate(360deg);
   }
 } */
- 
+.nav-tabs .nav-link,
+.calendar {
+  color: black;
+}
+

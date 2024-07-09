@@ -19,6 +19,10 @@ gem "puma", ">= 5.0"
 #adding devise
 gem 'devise'
 
+gem 'devise-jwt'
+gem 'jwt'
+gem 'bcrypt'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 

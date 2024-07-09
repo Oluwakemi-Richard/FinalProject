@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
   return (
     <div className="layout-wrapper">
       <Navbar bg="dark" variant="dark" expand="md" className="navbar" expanded={expanded}>
-        <Navbar.Brand as={Link} to="/" onClick={() => setExpanded(false)}>EMS</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/dashboard" onClick={() => setExpanded(false)}>EMS</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={toggleNavbar} />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="flex-column">

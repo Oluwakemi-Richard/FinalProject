@@ -57,6 +57,65 @@ body {
   margin-left: 150px;
   padding: 20px;
 }
+/* Responsive adjustments for the table and other elements */
+.container {
+  max-width: 100%;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.tabs-container {
+  margin-bottom: 20px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table thead th {
+  font-size: 0.9rem;
+}
+
+.table tbody td {
+  font-size: 0.8rem;
+}
+
+.table th, .table td {
+  white-space: nowrap;
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  margin: 5px 0;
+}
+
 
 /* Media Queries */
 @media (min-width: 992px){
