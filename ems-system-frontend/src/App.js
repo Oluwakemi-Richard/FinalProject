@@ -78,6 +78,7 @@ import PendingLeaves from './components/PendingLeaves';
 import Evaluation from './components/Evaluation';
 
 axios.defaults.withCredentials = true;
+//axios.defaults.baseURL = 'http://localhost:3000';
 axios.defaults.baseURL = 'https://finalproject-nydd.onrender.com';
 
 const App = () => {

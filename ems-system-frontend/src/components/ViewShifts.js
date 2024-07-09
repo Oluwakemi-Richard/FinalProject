@@ -14,7 +14,7 @@ const ViewShifts = () => {
   const fetchShifts = async () => {
     try {
       const endpoint = tab === 'upcoming' ? 'upcoming_shifts' : tab === 'ongoing' ? 'ongoing_shifts' : 'past_shifts';
-      const response = await axios.get(`http://localhost:3000/api/shifts/${endpoint}`, {
+      const response = await axios.get(`/api/shifts/${endpoint}`, {
         params: { employee_number: employeeNumber }
       });
       setShifts(response.data);
@@ -25,7 +25,7 @@ const ViewShifts = () => {
 
   const handleCheckIn = async (shiftId) => {
     try {
-      await axios.put(`http://localhost:3000/api/attendances/${shiftId}/check_in`);
+      await axios.put(`/api/attendances/${shiftId}/check_in`);
       alert('Checked in successfully');
       fetchShifts(); // Refresh the shifts to reflect the change
     } catch (error) {
@@ -35,7 +35,7 @@ const ViewShifts = () => {
 
   const handleCheckOut = async (shiftId) => {
     try {
-      await axios.put(`http://localhost:3000/api/attendances/${shiftId}/check_out`, { employee_number: employeeNumber });
+      await axios.put(`/api/attendances/${shiftId}/check_out`, { employee_number: employeeNumber });
       alert('Checked out successfully');
       fetchShifts(); // Refresh the shifts to reflect the change
     } catch (error) {

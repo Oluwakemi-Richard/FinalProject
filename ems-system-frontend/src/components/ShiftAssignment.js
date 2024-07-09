@@ -45,7 +45,7 @@ const ShiftAssignment = () => {
     if (!validateForm()) return;
 
     try {
-      await axios.post('http://localhost:3000/api/shifts', formData);
+      await axios.post('/api/shifts', formData);
       setShowModal(false);
       alert('Shift assigned successfully');
     } catch (error) {
@@ -58,7 +58,7 @@ const ShiftAssignment = () => {
     setQuery(query);
     if (query.trim() !== '') {
       try {
-        const response = await axios.get(`http://localhost:3000/api/employees?query=${query}`);
+        const response = await axios.get(`/api/employees?query=${query}`);
         setSuggestions(response.data);
       } catch (error) {
         console.error('Error fetching employee suggestions:', error);

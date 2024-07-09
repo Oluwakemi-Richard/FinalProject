@@ -37,7 +37,7 @@ const Appraisal = () => {
 
   const fetchAvailableMonths = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/employees/${employee.id}/available_months`, {
+      const response = await axios.get(`/api/employees/${employee.id}/available_months`, {
         params: { appraisal_year: appraisalData.appraisal_year }
       });
       setAvailableMonths(response.data || []);
@@ -51,7 +51,7 @@ const Appraisal = () => {
     setQuery(query);
     if (query.trim() !== '') {
       try {
-        const response = await axios.get(`http://localhost:3000/api/employees?query=${query}`);
+        const response = await axios.get(`/api/employees?query=${query}`);
         setSuggestions(response.data);
       } catch (error) {
         console.error('Error fetching employee suggestions:', error);
@@ -63,7 +63,7 @@ const Appraisal = () => {
 
   const handleEmployeeSelect = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/employees/${id}`);
+      const response = await axios.get(`/api/employees/${id}`);
       setEmployee(response.data);
       setAppraisalData({ ...appraisalData, employee_id: id });
       setSuggestions([]);  // Hide suggestions
@@ -106,7 +106,7 @@ const Appraisal = () => {
       return;
     }
     try {
-      await axios.post('http://localhost:3000/api/appraisals', appraisalData);
+      await axios.post('/api/appraisals', appraisalData);
       setAlertMessage('Appraisal submitted successfully');
       setAlertVariant('success');
       setTimeout(() => {

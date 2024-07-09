@@ -10,7 +10,7 @@ const ViewDetails = () => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/details/1001');
+        const response = await axios.get('/api/details/1001');
         setDetails(response.data);
         setAddress(response.data.address);
         setPhoneNumber(response.data.phone_number);
@@ -25,7 +25,7 @@ const ViewDetails = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put('http://localhost:3000/api/details/1001', { address, phone_number: phoneNumber });
+      await axios.put('/api/details/1001', { address, phone_number: phoneNumber });
       alert('Details updated successfully');
     } catch (error) {
       console.error('Error updating details:', error);

@@ -13,7 +13,7 @@ const PendingLeaves = () => {
 
   const fetchPendingLeaves = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/pending_leaves');
+      const response = await axios.get('/api/pending_leaves');
       setPendingLeaves(response.data);
     } catch (error) {
       console.error('Error fetching pending leaves:', error);
@@ -22,7 +22,7 @@ const PendingLeaves = () => {
 
   const handleApprove = async (leaveId) => {
     try {
-      await axios.put(`http://localhost:3000/api/pending_leaves/${leaveId}/approve`);
+      await axios.put(`/api/pending_leaves/${leaveId}/approve`);
       setSuccessMessage('Leave approved successfully.');
       setTimeout(() => {
         setSuccessMessage('');
@@ -36,7 +36,7 @@ const PendingLeaves = () => {
 
   const handleDisapprove = async (leaveId) => {
     try {
-      await axios.put(`http://localhost:3000/api/pending_leaves/${leaveId}/disapprove`);
+      await axios.put(`/api/pending_leaves/${leaveId}/disapprove`);
       setSuccessMessage('Leave disapproved successfully.');
       setTimeout(() => {
         setSuccessMessage('');

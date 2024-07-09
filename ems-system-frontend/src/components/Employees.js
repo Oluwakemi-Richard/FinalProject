@@ -23,7 +23,7 @@ const Employees = () => {
   }, []);
 
   const fetchEmployees = () => {
-    axios.get('http://localhost:3000/api/employees')
+    axios.get('/api/employees')
       .then(response => {
         setEmployees(response.data);
       })
@@ -34,7 +34,7 @@ const Employees = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:3000/api/employees', { employee: formData })
+    axios.post('/api/employees', { employee: formData })
       .then(response => {
         fetchEmployees(); // Refresh the list of employees after a new one is added
         setFormData({

@@ -19,7 +19,7 @@ const ViewEmployee = () => {
 
   const fetchYears = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/appraisals/years');
+      const response = await axios.get('/api/appraisals/years');
       setYears(response.data);
     } catch (error) {
       console.error('Error fetching years:', error);
@@ -30,7 +30,7 @@ const ViewEmployee = () => {
     setQuery(query);
     if (query.trim() !== '') {
       try {
-        const response = await axios.get(`http://localhost:3000/api/employees?query=${query}`);
+        const response = await axios.get(`/api/employees?query=${query}`);
         setSuggestions(response.data);
       } catch (error) {
         console.error('Error fetching employee suggestions:', error);
@@ -42,7 +42,7 @@ const ViewEmployee = () => {
 
   const handleEmployeeSelect = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/employees/${id}`);
+      const response = await axios.get(`/api/employees/${id}`);
       setEmployee(response.data);
       setQuery(response.data.name); // Set the query to the selected employee's name
       setSuggestions([]);
@@ -54,7 +54,7 @@ const ViewEmployee = () => {
   const fetchAppraisals = async () => {
     if (employee && selectedYear) {
       try {
-        const response = await axios.get(`http://localhost:3000/api/appraisals/${employee.id}/${selectedYear}`);
+        const response = await axios.get(`/api/appraisals/${employee.id}/${selectedYear}`);
         setAppraisals(response.data);
         if (response.data.length > 0) {
           setQuestionsHeadings(Object.keys(response.data[0].questions || {}));

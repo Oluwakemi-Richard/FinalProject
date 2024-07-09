@@ -22,7 +22,7 @@ const Payroll = () => {
 
   const fetchPayrollData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/payrolls/calculate', {
+      const response = await axios.get('/api/payrolls/calculate', {
         params: { month, year }
       });
       setPayrollData(response.data);
@@ -34,7 +34,7 @@ const Payroll = () => {
 
   const fetchPastPayrollData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/payrolls/past');
+      const response = await axios.get('/api/payrolls/past');
       setPayrollData(response.data);
       calculateRolesSummary(response.data);
     } catch (error) {

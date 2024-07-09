@@ -13,7 +13,7 @@ const Attendance = () => {
       if (staffName) params.staff_name = staffName;
       if (shiftDate) params.shift_date = shiftDate;
 
-      const response = await axios.get('http://localhost:3000/api/attendances', { params });
+      const response = await axios.get('/api/attendances', { params });
       setAttendances(response.data);
     } catch (error) {
       console.error('Error fetching attendance data:', error);

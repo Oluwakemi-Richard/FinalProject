@@ -31,7 +31,7 @@ const Employees = () => {
   }, [view]);
 
   const fetchEmployees = () => {
-    axios.get(`http://localhost:3000/api/employees?query=${searchQuery}`)
+    axios.get(`/api/employees?query=${searchQuery}`)
       .then(response => {
         setEmployees(response.data);
       })
@@ -116,7 +116,7 @@ const Employees = () => {
       setValidationErrors(errors);
       return;
     }
-    const url = editMode ? `http://localhost:3000/api/employees/${formData.id}` : 'http://localhost:3000/api/employees';
+    const url = editMode ? `/api/employees/${formData.id}` : '/api/employees';
     const method = editMode ? 'put' : 'post';
     axios[method](url, { employee: formData })
       .then(response => {
