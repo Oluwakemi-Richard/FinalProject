@@ -27,11 +27,11 @@
 # end
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'https://finalproject-frontend-iab3.onrender.com'  # Replace with your frontend URL
+    origins 'https://finalproject-frontend-iab3.onrender.com'
     resource '*',
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
-      credentials: true  # Allow credentials (cookies, authorization headers, etc.)
+      credentials: true 
   end
 end
 

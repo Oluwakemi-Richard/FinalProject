@@ -105,14 +105,15 @@ const App = () => {
     <Router>
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/employee-portal" element={<Portal />} />
+        <Route path="/view-shifts" element={<ViewShifts />} />
         <Route
           path="*"
           element={
             authenticated ? (
               <Layout>
                 <Routes>
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/employee-portal" element={<Portal />} />
                   <Route path="/employees" element={<Employees />} />
                   <Route path="/employee-registration" element={<EmployeeRegistration />} />
                   <Route path="/attendance" element={<Attendance />} />
@@ -120,7 +121,6 @@ const App = () => {
                   <Route path="/appraisal" element={<Appraisal />} />
                   <Route path="/view-employee" element={<ViewEmployee />} />
                   <Route path="/view-details" element={<ViewDetails />} />
-                  <Route path="/view-shifts" element={<ViewShifts />} />
                   <Route path="/leave-request" element={<LeaveRequest />} />
                   <Route path="/shift-assignment" element={<ShiftAssignment />} />
                   <Route path="/pending-leaves" element={<PendingLeaves />} />
