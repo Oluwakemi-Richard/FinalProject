@@ -472,8 +472,20 @@ const Employees = () => {
   }, [view]);
 
   const fetchEmployees = () => {
-    axios.get(`/api/employees?query=${searchQuery}`, {
-      headers: { 'Authorization': `Bearer ${sessionToken}` }
+    // axios.get(`/api/employees?query=${searchQuery}`, {
+    //   headers: { 'Authorization': `Bearer ${sessionToken}` }
+    // })
+    //   .then(response => {
+    //     setEmployees(response.data);
+    //   })
+    //   .catch(error => {
+    //     console.error("There was an error fetching the employees!", error);
+    //   });
+    axios.get(`/api/employees?query=${encodeURIComponent(searchQuery)}`, {
+      headers: {
+        'Authorization': `Bearer ${sessionToken}`,
+        'Accept': 'application/json' // Ensure this matches your server's expected format
+      }
     })
       .then(response => {
         setEmployees(response.data);
@@ -481,6 +493,7 @@ const Employees = () => {
       .catch(error => {
         console.error("There was an error fetching the employees!", error);
       });
+    
   };
 
   const validateField = (name, value) => {
@@ -552,6 +565,51 @@ const Employees = () => {
     return errors;
   };
 
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const errors = validateForm();
+  //   if (Object.keys(errors).length > 0) {
+  //     setValidationErrors(errors);
+  //     return;
+  //   }
+  //   const url = editMode ? `/api/employees/${formData.id}` : '/api/employees';
+  //   const method = editMode ? 'put' : 'post';
+  //   axios[method](url, { employee: formData }, {
+  //     headers: { 'Authorization': `Bearer ${sessionToken}` }
+  //   })
+  //     .then(response => {
+  //       alert(editMode ? 'Employee updated successfully!' : 'Employee created successfully!');
+  //       setView('view');
+  //       setFormData({
+  //         name: '',
+  //         position: '',
+  //         employee_number: '',
+  //         department: '',
+  //         branch: '',
+  //         address: '',
+  //         phone_number: '',
+  //         email: '',
+  //         start_date: '',
+  //         gender: '',
+  //         date_of_birth: '',
+  //         salary: ''
+  //       });
+  //     })
+  //     .catch(error => {
+  //       const errorMessage = error.response.data;
+  //       if (typeof errorMessage === 'string') {
+  //         if (errorMessage.includes('Email has already been taken')) {
+  //           setValidationErrors({ email: 'Email has already been taken.' });
+  //         } else if (errorMessage.includes('Employee number has already been taken')) {
+  //           setValidationErrors({ employee_number: 'Employee number has already been taken.' });
+  //         } else {
+  //           setError(errorMessage || 'There was an error submitting the form!');
+  //         }
+  //       } else {
+  //         setError('There was an error submitting the form!');
+  //       }
+  //     });
+  // };
   const handleSubmit = (event) => {
     event.preventDefault();
     const errors = validateForm();
@@ -559,10 +617,18 @@ const Employees = () => {
       setValidationErrors(errors);
       return;
     }
+    
     const url = editMode ? `/api/employees/${formData.id}` : '/api/employees';
     const method = editMode ? 'put' : 'post';
-    axios[method](url, { employee: formData }, {
-      headers: { 'Authorization': `Bearer ${sessionToken}` }
+  
+    axios({
+      method: method,
+      url: url,
+      data: { employee: formData },
+      headers: {
+        'Authorization': `Bearer ${sessionToken}`,
+        'Content-Type': 'application/json' 
+      }
     })
       .then(response => {
         alert(editMode ? 'Employee updated successfully!' : 'Employee created successfully!');
@@ -597,6 +663,7 @@ const Employees = () => {
         }
       });
   };
+  
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
