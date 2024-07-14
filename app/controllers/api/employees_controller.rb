@@ -73,6 +73,7 @@
 # end
 
 class Api::EmployeesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_employee, only: [:show, :update, :destroy]
 
   def index
@@ -131,6 +132,19 @@ class Api::EmployeesController < ApplicationController
       render json: { error: 'Employee not found' }, status: :not_found
     end
 
+    def current_employee
+      if current_user
+        @employee = Employee.find_by(email: current_user.email)
+        if @employee
+          render json: @employee
+        else
+          render json: { error: 'Employee not found' }, status: :not_found
+        end
+      else
+        render json: { error: 'Not Authorized' }, status: :unauthorized
+      end
+    end
+
   private
 
   def set_employee
@@ -145,3 +159,12 @@ class Api::EmployeesController < ApplicationController
     )
   end
 end
+# class Api::EmployeesController < ApplicationController
+#   before_action :authenticate_user!
+
+#   def index
+#     #Rails.logger.info "Authenticated User: #{current_user.inspect}"
+#     @employees = Employee.all
+#     render json: @employees
+#   end
+# end

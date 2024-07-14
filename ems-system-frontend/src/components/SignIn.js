@@ -51,13 +51,13 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Auth.css';
-import { AuthContext } from '../App';
+// import { AuthContext } from '../App';
 
 const SignIn = ({ onSignUpClick }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { setAuthenticated, setSessionCookie } = useContext(AuthContext);
+  const { setAuthenticated, setSessionCookie } = useContext(11);
 
   const handleSignIn = async (e) => {
     e.preventDefault();

@@ -1,17 +1,67 @@
+// import React from 'react';
+// import { useNavigate } from 'react-router-dom';
+
+// const Dashboard = () => {
+//   const navigate = useNavigate();
+//   const employeeName = localStorage.getItem('employeeName');
+
+//   if (!employeeName) {
+//     navigate('/login');
+//     return null;
+//   }
+//   const names = employeeName.split(' ');
+//   const firstName = names[0];
+//   const lastName = names.length > 1 ? names[names.length - 1] : '';
+
+//   const getInitials = () => {
+//     return (
+//       firstName.charAt(0).toUpperCase() +
+//       (lastName ? lastName.charAt(0).toUpperCase() : '')
+//     );
+//   };
+//   return (
+//     <div>
+//       <h1>Dashboard</h1>
+//       <p>Hello, {firstName}</p>
+//     </div>
+//   );
+// };
+
+// export default Dashboard;
+
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import '../styles/Dashboard.css';
 
 const Dashboard = () => {
-  const user = {
-    firstName: 'Oluwakemi',
-    lastName: 'Richard',
-  };
+  // const user = {
+  //   firstName: 'Oluwakemi',
+  //   lastName: 'Richard',
+  // };
+
+  // const getInitials = () => {
+  //   return user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase();
+  // };
+  const navigate = useNavigate();
+  const employeeName = localStorage.getItem('employeeName');
+
+  if (!employeeName) {
+    navigate('/login');
+    return null;
+  }
+  const names = employeeName.split(' ');
+  const firstName = names[0];
+  const lastName = names.length > 1 ? names[names.length - 1] : '';
 
   const getInitials = () => {
-    return user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase();
+    return (
+      firstName.charAt(0).toUpperCase() +
+      (lastName ? lastName.charAt(0).toUpperCase() : '')
+    );
   };
+
 
   return (
     <Container fluid>
@@ -20,7 +70,7 @@ const Dashboard = () => {
           <Card className="mt-4">
             <Card.Body>
               <div className="d-flex justify-content-between align-items-center">
-                <h2>Welcome, {user.firstName}</h2>
+                <h2>Welcome, {firstName}</h2>
                 <div className="profile-avatar">
                   <span className="initials">{getInitials()}</span>
                 </div>

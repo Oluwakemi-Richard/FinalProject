@@ -54,81 +54,43 @@
 // };
 
 // export default Register;
-
-// // src/components/SignUp.js
-
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setLoading(true);
-    setError('');
-
-    if (password !== passwordConfirmation) {
-      setError('Passwords do not match');
-      setLoading(false);
-      return;
-    }
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      await axios.post('/users', {
-        user: {
-          email,
-          password,
-          password_confirmation: passwordConfirmation,
-        },
-      });
-      alert('Sign up successful');
+      await api.post('/users', { user: { email, password } });
+      alert('Registration successful. Please log in.');
+      navigate('/login');
     } catch (error) {
-      setError('Sign up failed');
-    } finally {
-      setLoading(false);
+      alert('Registration failed');
     }
   };
 
   return (
-    <div className="sign-up">
-      <h2>Sign Up</h2>
+    <div>
+      <h1>Register</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Confirm Password</label>
-          <input
-            type="password"
-            value={passwordConfirmation}
-            onChange={(e) => setPasswordConfirmation(e.target.value)}
-            required
-          />
-        </div>
-        {error && <p className="error">{error}</p>}
-        <button type="submit" disabled={loading}>
-          {loading ? 'Signing Up...' : 'Sign Up'}
-        </button>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Register</button>
       </form>
     </div>
   );

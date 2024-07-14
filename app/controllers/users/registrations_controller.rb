@@ -1,17 +1,17 @@
 # # app/controllers/users/registrations_controller.rb
-class Users::RegistrationsController < Devise::RegistrationsController
-    respond_to :json
+# class Users::RegistrationsController < Devise::RegistrationsController
+#     respond_to :json
   
-    private
+#     private
   
-    def respond_with(resource, _opts = {})
-      if resource.persisted?
-        render json: { message: 'Signed up successfully.' }, status: :ok
-      else
-        render json: { message: "User couldn't be created successfully. #{resource.errors.full_messages.to_sentence}" }, status: :unprocessable_entity
-      end
-    end
-  end
+#     def respond_with(resource, _opts = {})
+#       if resource.persisted?
+#         render json: { message: 'Signed up successfully.' }, status: :ok
+#       else
+#         render json: { message: "User couldn't be created successfully. #{resource.errors.full_messages.to_sentence}" }, status: :unprocessable_entity
+#       end
+#     end
+#   end
 # class Users::RegistrationsController < Devise::RegistrationsController
 #     respond_to :json
   
@@ -25,4 +25,39 @@ class Users::RegistrationsController < Devise::RegistrationsController
 #       head :no_content
 #     end
 #   end
+# app/controllers/users/registrations_controller.rb
+# class Users::RegistrationsController < Devise::RegistrationsController
+#   respond_to :json
+
+#   # Override the create method for registration
+#   def create
+#     build_resource(sign_up_params)
+
+#     if resource.save
+#       render json: { status: 'User created successfully' }, status: :created
+#     else
+#       render json: { errors: resource.errors.full_messages }, status: :unprocessable_entity
+#     end
+#   end
+# end
+class Users::RegistrationsController < Devise::RegistrationsController
+  respond_to :json
+
+  private
+
+  def respond_with(resource, _opts = {})
+    register_success && return if resource.persisted?
+
+    register_failed
+  end
+
+  def register_success
+    render json: { message: 'Sign up successful.' }
+  end
+
+  def register_failed
+    render json: { message: "Sign up failed.", errors: resource.errors.full_messages }
+  end
+end
+
   
