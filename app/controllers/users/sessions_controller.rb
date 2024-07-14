@@ -163,7 +163,7 @@
 #   end
 # end
 class Users::SessionsController < Devise::SessionsController
-  before_action :authenticate_user!, except: [:create]
+  skip_before_action :authenticate_user!, only: [:create]
   respond_to :json
 
   # POST /users/sign_in
