@@ -104,27 +104,54 @@
 #     render json: { error: 'Not Authorized' }, status: :unauthorized unless current_user
 #   end
 # end
+# class ApplicationController < ActionController::API
+#   include ActionController::Helpers
+#   include Devise::Controllers::Helpers
+
+#   def current_user
+#     token = request.headers['Authorization']&.split(' ')&.last
+#     return nil unless token
+
+#     begin
+#       decoded_token = JsonWebToken.decode(token)
+#       @current_user ||= User.find(decoded_token[:user_id])
+#     rescue JWT::DecodeError => e
+#       Rails.logger.error "Error decoding token: #{e.message}"
+#       nil
+#     rescue ActiveRecord::RecordNotFound => e
+#       Rails.logger.error "User not found: #{e.message}"
+#       nil
+#     end
+#   end
+
+#   def authenticate_user!
+#     render json: { error: 'Not Authorized' }, status: :unauthorized unless current_user
+#   end
+# end
 class ApplicationController < ActionController::API
-  include ActionController::Helpers
-  include Devise::Controllers::Helpers
+  before_action :authenticate_user!
 
   def current_user
-    token = request.headers['Authorization']&.split(' ')&.last
-    return nil unless token
+    @current_user ||= User.find(decoded_auth_token[:user_id]) if decoded_auth_token
+  rescue ActiveRecord::RecordNotFound
+    nil
+  end
 
-    begin
-      decoded_token = JsonWebToken.decode(token)
-      @current_user ||= User.find(decoded_token[:user_id])
-    rescue JWT::DecodeError => e
-      Rails.logger.error "Error decoding token: #{e.message}"
-      nil
-    rescue ActiveRecord::RecordNotFound => e
-      Rails.logger.error "User not found: #{e.message}"
-      nil
+  private
+
+  def decoded_auth_token
+    @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
+  end
+
+  def http_auth_header
+    if request.headers['Authorization'].present?
+      return request.headers['Authorization'].split(' ').last
     end
+    nil
   end
 
   def authenticate_user!
-    render json: { error: 'Not Authorized' }, status: :unauthorized unless current_user
+    render json: { errors: ['Not Authenticated'] }, status: :unauthorized unless current_user
   end
 end
+

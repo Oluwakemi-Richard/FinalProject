@@ -34,12 +34,22 @@
 #       credentials: true 
 #   end
 # end
+# Rails.application.config.middleware.insert_before 0, Rack::Cors do
+#   allow do
+#     origins 'http://localhost:3001' # Change this to specific domains in production
+#     resource '*',
+#       headers: :any,
+#       methods: [:get, :post, :put, :patch, :delete, :options, :head],
+#       expose: ['Authorization']
+#   end
+# end
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins '*' # Change this to specific domains in production
+    origins 'http://localhost:3001', 'https://finalproject-frontend-iab3.onrender.com' # specify your allowed origins here
+
     resource '*',
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
-      expose: ['Authorization']
+      credentials: true # set this to true if you need to include cookies or authentication information with the requests
   end
 end

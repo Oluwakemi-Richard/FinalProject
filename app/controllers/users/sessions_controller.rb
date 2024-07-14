@@ -163,6 +163,7 @@
 #   end
 # end
 class Users::SessionsController < Devise::SessionsController
+  before_action :authenticate_user!, except: [:create]
   respond_to :json
 
   # POST /users/sign_in

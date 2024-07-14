@@ -111,13 +111,13 @@ const Login = () => {
       localStorage.setItem('email', email);
 
       // Fetch the current employee's information
-      const employeeResponse = await api.get('/api/current_employee', {
-        headers: { Authorization: `Bearer ${response.data.token}` }
-      });
-      localStorage.setItem('employeeName', employeeResponse.data.name);
+      // const employeeResponse = await api.get('/api/current_employee', {
+      //   headers: { Authorization: `Bearer ${response.data.token}` }
+      // });
+      // localStorage.setItem('employeeName', employeeResponse.data.name);
 
       alert('Login successful');
-      navigate('/dashboard');
+      navigate('/');
     } catch (error) {
       alert('Login failed');
       console.error('Login error:', error); // Log error details for debugging
