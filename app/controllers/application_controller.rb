@@ -161,31 +161,41 @@ class ApplicationController < ActionController::API
 
   private
 
+  # Set the @current_user instance variable based on the decoded JWT token
   def set_current_user
     @current_user = User.find_by(id: decoded_auth_token[:user_id]) if decoded_auth_token
+    Rails.logger.info "Current User: #{@current_user.inspect}"
+    Rails.logger.info "Decoded Auth Token: #{decoded_auth_token.inspect}"
   rescue ActiveRecord::RecordNotFound
     @current_user = nil
   end
 
+  # Check if the user is signed in; if not, log the failure
   def authenticate_user!
     unless user_signed_in?
-      Rails.logger.info "User not authenticated"
-      # Do not render or redirect; just mark the request as unauthorized
+      Rails.logger.info "User not authenticated - Request from: #{request.remote_ip}"
+      # Just log the information; do not render or redirect
+      head :unauthorized
     end
   end
 
+  # Determine if the user is signed in
   def user_signed_in?
     @current_user.present?
   end
 
+  # Provide the current user
   def current_user
     @current_user
   end
 
+  # Decode the JWT token to extract user information
   def decoded_auth_token
+    Rails.logger.info "Auth Header: #{http_auth_header.inspect}"
     @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
   end
 
+  # Extract the authorization header from the request
   def http_auth_header
     if request.headers['Authorization'].present?
       return request.headers['Authorization'].split(' ').last
