@@ -1,5 +1,5 @@
 class JwtService
-    SECRET_KEY = Rails.application.credentials[:jwt_secret_key] || ENV['DEVISE_JWT_SECRET_KEY']
+    SECRET_KEY = ENV['DEVISE_JWT_SECRET_KEY']
   
     def self.encode(payload)
       JWT.encode(payload, SECRET_KEY, 'HS256')

@@ -10,7 +10,7 @@ Warden::Manager.before_logout do |user, auth, opts|
 end
 
 Warden::JWTAuth.configure do |config|
-  config.secret = Rails.application.credentials.jwt[:hmac_secret] || ENV['HMAC_SECRET']
+  config.secret = ENV['HMAC_SECRET']
   config.expiration_time = 1.day.to_i
   config.dispatch_requests = [['DELETE', %r{^/logout$}]]
   config.revocation_requests = [['DELETE', %r{^/logout$}]]
