@@ -159,16 +159,20 @@
 #   end
 # end
 class Api::EmployeesController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
   before_action :set_employee, only: [:show, :update, :destroy]
-  before_action :authenticate_user!, except: [:current_employee] # Explicitly state any exceptions
 
   def index
-    if params[:query].present?
-      @employees = Employee.search(params[:query])
+    if user_signed_in?
+      if params[:query].present?
+        @employees = Employee.search(params[:query])
+      else
+        @employees = Employee.all
+      end
+      render json: @employees
     else
-      @employees = Employee.all
+      render json: { errors: ['Not Authenticated'] }, status: :unauthorized
     end
-    render json: @employees
   end
 
   def show
@@ -229,8 +233,6 @@ class Api::EmployeesController < ApplicationController
 
   def set_employee
     @employee = Employee.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: 'Employee not found' }, status: :not_found
   end
 
   def employee_params

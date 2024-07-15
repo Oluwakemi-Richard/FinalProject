@@ -154,26 +154,42 @@
 #     render json: { errors: ['Not Authenticated'] }, status: :unauthorized unless current_user
 #   end
 # end
+
 class ApplicationController < ActionController::API
+  before_action :set_current_user
   before_action :authenticate_user!
 
-  def current_user
-    @current_user ||= User.find(decoded_auth_token[:user_id]) if decoded_auth_token
+  private
+
+  def set_current_user
+    @current_user = User.find_by(id: decoded_auth_token[:user_id]) if decoded_auth_token
   rescue ActiveRecord::RecordNotFound
-    nil
+    @current_user = nil
   end
 
-  private
+  def authenticate_user!
+    unless user_signed_in?
+      Rails.logger.info "User not authenticated"
+      # Do not render or redirect; just mark the request as unauthorized
+    end
+  end
+
+  def user_signed_in?
+    @current_user.present?
+  end
+
+  def current_user
+    @current_user
+  end
 
   def decoded_auth_token
     @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
   end
 
   def http_auth_header
-    request.headers['Authorization']&.split(' ')&.last
-  end
-
-  def authenticate_user!
-    render json: { errors: ['Not Authenticated'] }, status: :unauthorized unless current_user
+    if request.headers['Authorization'].present?
+      return request.headers['Authorization'].split(' ').last
+    end
+    nil
   end
 end
