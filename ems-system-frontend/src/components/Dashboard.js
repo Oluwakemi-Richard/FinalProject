@@ -130,7 +130,7 @@ const Dashboard = () => {
   }, [navigate]);
 
   if (!employeeName) {
-    return null; // Or you can add a loading spinner here
+    return null; 
   }
 
   const names = employeeName.split(' ');

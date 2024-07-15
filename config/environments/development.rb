@@ -74,4 +74,5 @@ Rails.application.configure do
   #config.action_mailer.default_url_options = { host: 'https://finalproject-nydd.onrender.com' }
   config.middleware.use ActionDispatch::Cookies
   config.middleware.use ActionDispatch::Session::CookieStore, key: '_final_project_session'
+  config.eager_load = false
 end

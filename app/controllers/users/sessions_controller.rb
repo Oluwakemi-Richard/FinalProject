@@ -162,38 +162,86 @@
 #     JsonWebToken.revoke(token) # Call the `revoke` method from `JsonWebToken`
 #   end
 # end
+# class Users::SessionsController < Devise::SessionsController
+#   skip_before_action :authenticate_user!, only: [:create]
+#   respond_to :json
+
+#   # POST /users/sign_in
+#   def create
+#     self.resource = warden.authenticate!(auth_options)
+#     if resource
+#       sign_in(resource_name, resource)
+#       token = generate_jwt(resource) # Generate JWT token for the user
+#       render json: { message: 'Logged in successfully.', user: resource, token: token }, status: :ok
+#     else
+#       render json: { message: 'Invalid email or password.' }, status: :unauthorized
+#     end
+#   rescue ActiveRecord::RecordNotFound => e
+#     render json: { message: 'Invalid email or password.' }, status: :unauthorized
+#   end
+
+#   # DELETE /users/sign_out
+#   def destroy
+#     if current_user
+#       # Use Warden to logout the user
+#       warden.logout
+#       revoke_token(current_token) # Perform token revocation logic
+#       render json: { message: 'Logged out successfully.' }, status: :ok
+#     else
+#       render json: { message: 'No user signed in.' }, status: :unauthorized
+#     end
+#   end
+  
+#   protected
+  
+#   def respond_to_on_destroy
+#     head :no_content
+#   end
+
+#   def current_token
+#     request.headers['Authorization']&.split(' ')&.last
+#   end
+
+#   def generate_jwt(resource)
+#     payload = { user_id: resource.id, jti: resource.jti }
+#     JWT.encode(payload, Rails.application.secrets.secret_key_base)
+#   end
+
+#   def revoke_token(token)
+#     # Implement your token revocation logic here
+#     Token.where(value: token).destroy_all
+#     # For simplicity, we'll just return true as a placeholder
+#   end
+# end
 class Users::SessionsController < Devise::SessionsController
   skip_before_action :authenticate_user!, only: [:create]
   respond_to :json
 
-  # POST /users/sign_in
   def create
     self.resource = warden.authenticate!(auth_options)
     if resource
       sign_in(resource_name, resource)
-      token = generate_jwt(resource) # Generate JWT token for the user
+      token = generate_jwt(resource)
       render json: { message: 'Logged in successfully.', user: resource, token: token }, status: :ok
     else
       render json: { message: 'Invalid email or password.' }, status: :unauthorized
     end
-  rescue ActiveRecord::RecordNotFound => e
+  rescue ActiveRecord::RecordNotFound
     render json: { message: 'Invalid email or password.' }, status: :unauthorized
   end
 
-  # DELETE /users/sign_out
   def destroy
     if current_user
-      # Use Warden to logout the user
       warden.logout
-      revoke_token(current_token) # Perform token revocation logic
+      revoke_token(current_token)
       render json: { message: 'Logged out successfully.' }, status: :ok
     else
       render json: { message: 'No user signed in.' }, status: :unauthorized
     end
   end
-  
+
   protected
-  
+
   def respond_to_on_destroy
     head :no_content
   end
@@ -208,11 +256,10 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def revoke_token(token)
-    # Implement your token revocation logic here
     Token.where(value: token).destroy_all
-    # For simplicity, we'll just return true as a placeholder
   end
 end
+
 
 
 
