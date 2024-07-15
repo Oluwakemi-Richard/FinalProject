@@ -26,7 +26,7 @@
 #     end
 #   end
 class JsonWebToken
-  HMAC_SECRET = Rails.application.secrets.secret_key_base
+  HMAC_SECRET = ENV['SECRET_KEY_BASE']
   
   def self.encode(payload, exp = 1.month.from_now)
     payload[:exp] = exp.to_i
