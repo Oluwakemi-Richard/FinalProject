@@ -184,7 +184,8 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import { Modal, Form, Button } from 'react-bootstrap';
-import axios from 'axios';
+//import axios from 'axios';
+import api from '../services/api';
 import '../styles/Shift.css';
 
 const ShiftAssignment = () => {
@@ -228,7 +229,7 @@ const ShiftAssignment = () => {
     if (!validateForm()) return;
 
     try {
-      await axios.post('/api/shifts', formData);
+      await api.post('/api/shifts', formData);
       setShowModal(false);
       alert('Shift assigned successfully');
     } catch (error) {
@@ -241,7 +242,7 @@ const ShiftAssignment = () => {
     setQuery(query);
     if (query.trim() !== '') {
       try {
-        const response = await axios.get(`/api/employees?query=${query}`);
+        const response = await api.get(`/api/employees?query=${query}`);
         setSuggestions(response.data);
       } catch (error) {
         console.error('Error fetching employee suggestions:', error);

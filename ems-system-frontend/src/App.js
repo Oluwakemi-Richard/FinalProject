@@ -252,31 +252,97 @@
 
 // export default App;
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Employees from './components/Employees';
-import Register from './components/Register';
-import Login from './components/Login';
-import Logout from './components/Logout';
+// import Register from './components/Register';
+// import Login from './components/Login';
+// import Logout from './components/Logout';
 import EmployeeRegistration from './components/EmployeeRegistration';
 import ProtectedRoute from './components/ProtectedRoute';
+import LandingPage from './pages/LandingPage';
+import Layout from './components/Layout';
+import Portal from './components/Portal';
+import Attendance from './components/Attendance';
+import Payroll from './components/Payroll';
+import Appraisal from './components/Appraisal';
+import ViewEmployee from './components/ViewEmployee';
+import ViewDetails from './components/ViewDetails';
+import ViewShifts from './components/ViewShifts';
+import LeaveRequest from './components/LeaveRequest';
+import ShiftAssignment from './components/ShiftAssignment';
+import PendingLeaves from './components/PendingLeaves';
+import Evaluation from './components/Evaluation';
+import PageNotFound from './components/PageNotFound';
 
-function App() {
+// function App() {
+//   return (
+//     <Router>
+//       <div className="App">
+//         <Routes>
+//         <Route path="/" element={<LandingPage />} />  
+//         <Layout>
+//         <Routes>
+//           <Route path="/employee-portal" element={<ProtectedRoute element={Portal} />} />
+//           <Route path="/attendance" element={<ProtectedRoute element={Attendance}/>} />
+//           <Route path="/payroll" element={<ProtectedRoute element={Payroll} />} />
+//           <Route path="/appraisal" element={<ProtectedRoute element={Appraisal} />} />
+//           <Route path="/view-employee" element={<ProtectedRoute element={ViewEmployee} />} />
+//           <Route path="/view-details" element={<ProtectedRoute element={ViewDetails} />} />
+//           <Route path="/view-shifts" element={<ProtectedRoute element={ViewShifts} />} />
+//           <Route path="/leave-request" element={<ProtectedRoute element={LeaveRequest} />} />
+//           <Route path="/shift-assignment" element={<ProtectedRoute element={ShiftAssignment} />} />
+//           <Route path="/pending-leaves" element={<ProtectedRoute element={PendingLeaves} />} />
+//           <Route path="/evaluation" element={<ProtectedRoute element={Evaluation} />} />
+//           <Route path="/dashboard" element={<ProtectedRoute element={Dashboard} />} />
+//           <Route path="/employees" element={<ProtectedRoute element={Employees} />} />
+//           {/* <Route path="/register" element={<Register />} />
+//           <Route path="/login" element={<Login />} /> */}
+//           <Route path="/employee-registration" element={<ProtectedRoute element={EmployeeRegistration} />} />
+//         </Routes>
+//         </Layout>
+//         </Routes>
+        
+//       </div>
+//     </Router>
+//   );
+// }
+
+// export default App;
+const App = () => {
   return (
     <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/employees" element={<ProtectedRoute element={Employees} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/employee-registration" element={<EmployeeRegistration />} />
-          <Route path="/" element={<div>Home Page</div>} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route exact path="/" element={<LandingPage />} />
+        <Route
+          path="*"
+          element={
+            <Layout>
+              <Routes>
+                <Route path="/employee-portal" element={<ProtectedRoute element={Portal} />} />
+                <Route path="/attendance" element={<ProtectedRoute element={Attendance}/>} />
+                <Route path="/payroll" element={<ProtectedRoute element={Payroll} />} />
+                <Route path="/appraisal" element={<ProtectedRoute element={Appraisal} />} />
+                <Route path="/view-employee" element={<ProtectedRoute element={ViewEmployee} />} />
+                <Route path="/view-details" element={<ProtectedRoute element={ViewDetails} />} />
+                <Route path="/view-shifts" element={<ProtectedRoute element={ViewShifts} />} />
+                <Route path="/leave-request" element={<ProtectedRoute element={LeaveRequest} />} />
+                <Route path="/shift-assignment" element={<ProtectedRoute element={ShiftAssignment} />} />
+                <Route path="/pending-leaves" element={<ProtectedRoute element={PendingLeaves} />} />
+                <Route path="/evaluation" element={<ProtectedRoute element={Evaluation} />} />
+                <Route path="/dashboard" element={<ProtectedRoute element={Dashboard} />} />
+                <Route path="/employees" element={<ProtectedRoute element={Employees} />} />
+                {/* <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} /> */}
+                <Route path="/employee-registration" element={<ProtectedRoute element={EmployeeRegistration} />} />
+                <Route path="/*" element={<PageNotFound />} />
+              </Routes>
+            </Layout>
+          }
+        />
+      </Routes>
     </Router>
   );
-}
+};
 
 export default App;

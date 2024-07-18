@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Table } from 'react-bootstrap';
-import axios from 'axios';
+// import axios from 'axios';
 import '../styles/Attendance.css';
+import api from '../services/api';
 
 const Attendance = () => {
   const [attendances, setAttendances] = useState([]);
@@ -14,7 +15,7 @@ const Attendance = () => {
       if (staffName) params.staff_name = staffName;
       if (shiftDate) params.shift_date = shiftDate;
 
-      const response = await axios.get('/api/attendances', { params });
+      const response = await api.get('/api/attendances', { params });
       setAttendances(response.data);
     } catch (error) {
       console.error('Error fetching attendance data:', error);

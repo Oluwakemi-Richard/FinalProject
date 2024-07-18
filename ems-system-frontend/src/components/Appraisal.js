@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Card, Alert } from 'react-bootstrap';
-import axios from 'axios';
+// import axios from 'axios';
+import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Appraisal.css';
 
@@ -37,7 +38,7 @@ const Appraisal = () => {
 
   const fetchAvailableMonths = async () => {
     try {
-      const response = await axios.get(`/api/employees/${employee.id}/available_months`, {
+      const response = await api.get(`/api/employees/${employee.id}/available_months`, {
         params: { appraisal_year: appraisalData.appraisal_year }
       });
       setAvailableMonths(response.data || []);
@@ -51,7 +52,7 @@ const Appraisal = () => {
     setQuery(query);
     if (query.trim() !== '') {
       try {
-        const response = await axios.get(`/api/employees?query=${query}`);
+        const response = await api.get(`/api/employees?query=${query}`);
         setSuggestions(response.data);
       } catch (error) {
         console.error('Error fetching employee suggestions:', error);
@@ -63,7 +64,7 @@ const Appraisal = () => {
 
   const handleEmployeeSelect = async (id) => {
     try {
-      const response = await axios.get(`/api/employees/${id}`);
+      const response = await api.get(`/api/employees/${id}`);
       setEmployee(response.data);
       setAppraisalData({ ...appraisalData, employee_id: id });
       setSuggestions([]);  // Hide suggestions
@@ -106,7 +107,7 @@ const Appraisal = () => {
       return;
     }
     try {
-      await axios.post('/api/appraisals', appraisalData);
+      await api.post('/api/appraisals', appraisalData);
       setAlertMessage('Appraisal submitted successfully');
       setAlertVariant('success');
       setTimeout(() => {

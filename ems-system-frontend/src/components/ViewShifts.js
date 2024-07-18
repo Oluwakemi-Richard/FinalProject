@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Table, Button, Tabs, Tab } from 'react-bootstrap';
-import axios from 'axios';
+// import axios from 'axios';
 import '../App.css';
+import api from '../services/api';
 
 const ViewShifts = () => {
   const [shifts, setShifts] = useState([]);
@@ -15,7 +16,7 @@ const ViewShifts = () => {
   const fetchShifts = async () => {
     try {
       const endpoint = tab === 'upcoming' ? 'upcoming_shifts' : tab === 'ongoing' ? 'ongoing_shifts' : 'past_shifts';
-      const response = await axios.get(`/api/shifts/${endpoint}`, {
+      const response = await api.get(`/api/shifts/${endpoint}`, {
         params: { employee_number: employeeNumber }
       });
       setShifts(response.data);
@@ -26,7 +27,7 @@ const ViewShifts = () => {
 
   const handleCheckIn = async (shiftId) => {
     try {
-      await axios.put(`/api/attendances/${shiftId}/check_in`);
+      await api.put(`/api/attendances/${shiftId}/check_in`);
       alert('Checked in successfully');
       fetchShifts(); // Refresh the shifts to reflect the change
     } catch (error) {
@@ -36,7 +37,7 @@ const ViewShifts = () => {
 
   const handleCheckOut = async (shiftId) => {
     try {
-      await axios.put(`/api/attendances/${shiftId}/check_out`, { employee_number: employeeNumber });
+      await api.put(`/api/attendances/${shiftId}/check_out`, { employee_number: employeeNumber });
       alert('Checked out successfully');
       fetchShifts(); // Refresh the shifts to reflect the change
     } catch (error) {

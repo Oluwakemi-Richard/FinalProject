@@ -53,4 +53,43 @@ code {
 .calendar {
   color: black;
 }
+button {
+  padding: 0.5rem;
+  /* background: #ff7e5f; */
+  background:#0d6efd;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+button:hover {
+  background: #b5a69a;
+}
+.page-not-found {
+  text-align: center;
+  padding: 50px;
+}
+
+.page-not-found h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.page-not-found p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.page-not-found .back-to-home {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 1.2em;
+  transition: color 0.3s;
+}
+
+.page-not-found .back-to-home:hover {
+  color: #0056b3;
+}
+
 

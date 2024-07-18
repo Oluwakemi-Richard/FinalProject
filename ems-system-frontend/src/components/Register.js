@@ -55,40 +55,58 @@
 
 // export default Register;
 import React, { useState } from 'react';
-import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
+//import axios from 'axios';
+import '../styles/Auth.css';
+import api from '../services/api';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (password !== passwordConfirmation) {
+      alert('Passwords do not match');
+      return;
+    }
+
     try {
-      await api.post('/users', { user: { email, password } });
+      await api.post('/users', { user: { email, password, password_confirmation: passwordConfirmation } });
       alert('Registration successful. Please log in.');
       navigate('/login');
     } catch (error) {
       alert('Registration failed');
+      console.error('Registration error:', error);
     }
   };
 
   return (
-    <div>
-      <h1>Register</h1>
+    <div className="auth-container">
+      <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password Confirmation"
+          value={passwordConfirmation}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
+          required
         />
         <button type="submit">Register</button>
       </form>
@@ -97,3 +115,4 @@ const Register = () => {
 };
 
 export default Register;
+

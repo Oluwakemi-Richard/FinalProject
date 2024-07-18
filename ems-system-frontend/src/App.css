@@ -8,11 +8,16 @@ body {
   font-size: 0.875em;
   margin-top: 0.25em;
 }
+.navbar-brand img{
+  width:90px;
+  height:80px;
+}
 
 .navbar {
   width: 150px; 
   font-size: 0.8rem;
-  background-color: #343a40;
+  background-color: #007bff;
+  /* background-color:linear-gradient(to right, #0b0932, #b5a69a) */
   color: white;
   position: fixed;
   top: 0;
@@ -46,10 +51,22 @@ body {
 
 .nav-link {
   color: white;
+  font-size: 1.2em; 
+  font-weight: bold; 
+  padding: 10px;
+  transition: background-color 0.3s, color 0.3s; 
 }
+
 
 .nav-link:hover {
   text-decoration: none;
+  border:1px solid yellow;
+  background-color: white;
+  color: black; 
+}
+
+.navbar .navbar-nav .nav-link.logout-link {
+  margin-top: 1.5em;
 }
 
 .main-content {
@@ -169,4 +186,5 @@ button {
   .main-content {
     margin-left: 150px;
   }
+ 
 }

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Table, Tabs, Tab } from 'react-bootstrap';
-import axios from 'axios';
+// import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import api from '../services/api';
 
 const Payroll = () => {
   const [payrollData, setPayrollData] = useState([]);
@@ -22,7 +23,7 @@ const Payroll = () => {
 
   const fetchPayrollData = async () => {
     try {
-      const response = await axios.get('/api/payrolls/calculate', {
+      const response = await api.get('/api/payrolls/calculate', {
         params: { month, year }
       });
       setPayrollData(response.data);
@@ -34,7 +35,7 @@ const Payroll = () => {
 
   const fetchPastPayrollData = async () => {
     try {
-      const response = await axios.get('/api/payrolls/past');
+      const response = await api.get('/api/payrolls/past');
       setPayrollData(response.data);
       calculateRolesSummary(response.data);
     } catch (error) {

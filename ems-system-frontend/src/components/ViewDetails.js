@@ -1,17 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import '../styles/Employee.css';
+import api from '../services/api';
 
 const ViewDetails = () => {
   const [details, setDetails] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // useEffect(() => {
+  //   const fetchDetails = async () => {
+  //     try {
+  //       const response = await api.get('/api/details/1001');
+  //       setDetails(response.data);
+  //     } catch (error) {
+  //       setError('Error fetching employee details. Please try again later.');
+  //       console.error('Error fetching employee details:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchDetails();
+  // }, []);
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('/api/details/1001');
-        setDetails(response.data);
+        // Fetch the current employee
+        const currentEmployeeResponse = await api.get('/api/current_employee', {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        });
+        const employee_number = currentEmployeeResponse.data.employee_number;
+  
+        const detailsResponse = await api.get(`/api/details/${employee_number}`);
+        setDetails(detailsResponse.data);
       } catch (error) {
         setError('Error fetching employee details. Please try again later.');
         console.error('Error fetching employee details:', error);
@@ -19,7 +41,7 @@ const ViewDetails = () => {
         setLoading(false);
       }
     };
-
+  
     fetchDetails();
   }, []);
 
@@ -36,8 +58,8 @@ const ViewDetails = () => {
       <h1>Employee Details</h1>
       <div className="details-card">
         <div className="details-item">
-          <span className="details-label">Employee ID:</span>
-          <span className="details-value">{details.id || 'N/A'}</span>
+          <span className="details-label">Employee Number:</span>
+          <span className="details-value">{details.employee_number || 'N/A'}</span>
         </div>
         <div className="details-item">
           <span className="details-label">Name:</span>

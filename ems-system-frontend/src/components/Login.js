@@ -94,8 +94,10 @@
 // export default Login;
 
 import React, { useState } from 'react';
-import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
+//import axios from 'axios';
+import '../styles/Auth.css';
+import api from '../services/api';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -106,39 +108,41 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await api.post('/login', { user: { email, password } });
-      // Save the token in local storage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('email', email);
 
-      // Fetch the current employee's information
-      // const employeeResponse = await api.get('/api/current_employee', {
-      //   headers: { Authorization: `Bearer ${response.data.token}` }
-      // });
-      // localStorage.setItem('employeeName', employeeResponse.data.name);
+      const employeeResponse = await api.get('/api/current_employee', {
+        headers: { Authorization: `Bearer ${response.data.token}` },
+      });
+      console.log(employeeResponse)
+      localStorage.setItem('employeeName', employeeResponse.data.name);
 
       alert('Login successful');
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
+      localStorage.clear();
       alert('Login failed');
-      console.error('Login error:', error); // Log error details for debugging
+      console.error('Login error:', error);
     }
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="auth-container">
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <button type="submit">Login</button>
       </form>

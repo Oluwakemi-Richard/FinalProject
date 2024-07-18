@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Table } from 'react-bootstrap';
-import axios from 'axios';
+// import axios from 'axios';
+import api from '../services/api';
 
 const LeaveRequest = () => {
   const [employee, setEmployee] = useState(null);
@@ -13,10 +14,28 @@ const LeaveRequest = () => {
     fetchEmployeeAndLeaves();
   }, []);
 
+  // const fetchEmployeeAndLeaves = async () => {
+  //   try {
+  //     const response = await api.get('/api/employees?email=boob123@gmail.com');
+  //     const employee = response.data[0];
+  //     console.log('Fetched employee:', employee);
+  //     setEmployee(employee);
+  //     if (employee) fetchLeaves(employee.id);
+  //   } catch (error) {
+  //     console.error('Error fetching employee:', error);
+  //   }
+  // };
   const fetchEmployeeAndLeaves = async () => {
+    const email = localStorage.getItem('email');
+  
+    if (!email) {
+      console.error('No email found in local storage');
+      return;
+    }
+  
     try {
-      const response = await axios.get('/api/employees?email=boob123@gmail.com');
-      const employee = response.data[0]; // Assuming the API returns an array of employees
+      const response = await api.get(`/api/employees?email=${email}`);
+      const employee = response.data[0];
       console.log('Fetched employee:', employee);
       setEmployee(employee);
       if (employee) fetchLeaves(employee.id);
@@ -24,10 +43,11 @@ const LeaveRequest = () => {
       console.error('Error fetching employee:', error);
     }
   };
+  
 
   const fetchLeaves = async (employeeId) => {
     try {
-      const response = await axios.get(`/api/employees/${employeeId}/leaves`);
+      const response = await api.get(`/api/employees/${employeeId}/leaves`);
       console.log('Fetched leaves:', response.data);
       setLeaves(response.data);
     } catch (error) {
@@ -40,7 +60,7 @@ const LeaveRequest = () => {
     event.preventDefault();
     if (!employee) return;
     try {
-      const response = await axios.post(`/api/employees/${employee.id}/leaves`, {
+      const response = await api.post(`/api/employees/${employee.id}/leaves`, {
         leave: {
           start_date: startDate,
           end_date: endDate,
@@ -59,7 +79,7 @@ const LeaveRequest = () => {
   const handleDelete = async (leaveId) => {
     if (!employee) return;
     try {
-      await axios.delete(`/api/employees/${employee.id}/leaves/${leaveId}`);
+      await api.delete(`/api/employees/${employee.id}/leaves/${leaveId}`);
       setLeaves(leaves.filter((leave) => leave.id !== leaveId));
     } catch (error) {
       console.error('Error deleting leave:', error);

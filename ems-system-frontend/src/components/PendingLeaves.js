@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Container } from 'react-bootstrap';
-import axios from 'axios';
+// import axios from 'axios';
 import '../styles/PendingLeaves.css';
+import api from '../services/api';
 
 const PendingLeaves = () => {
   const [pendingLeaves, setPendingLeaves] = useState([]);
@@ -13,7 +14,7 @@ const PendingLeaves = () => {
 
   const fetchPendingLeaves = async () => {
     try {
-      const response = await axios.get('/api/pending_leaves');
+      const response = await api.get('/api/pending_leaves');
       setPendingLeaves(response.data);
     } catch (error) {
       console.error('Error fetching pending leaves:', error);
@@ -22,7 +23,7 @@ const PendingLeaves = () => {
 
   const handleApprove = async (leaveId) => {
     try {
-      await axios.put(`/api/pending_leaves/${leaveId}/approve`);
+      await api.put(`/api/pending_leaves/${leaveId}/approve`);
       setSuccessMessage('Leave approved successfully.');
       setTimeout(() => {
         setSuccessMessage('');
@@ -36,7 +37,7 @@ const PendingLeaves = () => {
 
   const handleDisapprove = async (leaveId) => {
     try {
-      await axios.put(`/api/pending_leaves/${leaveId}/disapprove`);
+      await api.put(`/api/pending_leaves/${leaveId}/disapprove`);
       setSuccessMessage('Leave disapproved successfully.');
       setTimeout(() => {
         setSuccessMessage('');
