@@ -36,14 +36,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Dashboard.css';
 
 const Dashboard = () => {
-  // const user = {
-  //   firstName: 'Oluwakemi',
-  //   lastName: 'Richard',
-  // };
-
-  // const getInitials = () => {
-  //   return user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase();
-  // };
   const navigate = useNavigate();
   const employeeName = localStorage.getItem('employeeName');
 
@@ -75,7 +67,7 @@ const Dashboard = () => {
                   <span className="initials">{getInitials()}</span>
                 </div>
               </div>
-              <p>Here you can manage various tasks.</p>
+              <p>Here you can manage your various tasks.</p>
               <div className="dashboard-links">
               <Link to="/employee-registration" className="dashboard-link generate-payroll">Register Employee</Link>
                 <Link to="/shift-assignment" className="dashboard-link assign-shifts">Assign Shifts</Link>

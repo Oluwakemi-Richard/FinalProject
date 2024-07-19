@@ -107,14 +107,14 @@ const Payroll = () => {
       ],
       body: payrollData.map(data => [
         data.employee_name,
-        `£${data.pay_rate}`,
+        `₦${data.pay_rate}`,
         data.total_hours_worked.toFixed(2),
-        `£${data.gross_pay.toFixed(2)}`,
-        `£${data.bonus || 0}`,
-        `£${data.tax.toFixed(2)}`,
-        `£${data.pension.toFixed(2)}`,
-        `£${data.other_deductions || 0}`,
-        `£${data.net_pay.toFixed(2)}`
+        `₦${data.gross_pay.toFixed(2)}`,
+        `₦${data.bonus || 0}`,
+        `₦${data.tax.toFixed(2)}`,
+        `₦${data.pension.toFixed(2)}`,
+        `₦${data.other_deductions || 0}`,
+        `₦${data.net_pay.toFixed(2)}`
       ]),
       startY: 30
     });
@@ -124,9 +124,9 @@ const Payroll = () => {
       body: rolesSummary.map(role => [
         role.role,
         role.totalEmployees,
-        `£${role.totalGrossPay.toFixed(2)}`,
-        `£${role.totalTax.toFixed(2)}`,
-        `£${role.totalNetPay.toFixed(2)}`
+        `₦${role.totalGrossPay.toFixed(2)}`,
+        `₦${role.totalTax.toFixed(2)}`,
+        `₦${role.totalNetPay.toFixed(2)}`
       ]),
       startY: doc.autoTable.previous.finalY + 10
     });
@@ -201,9 +201,9 @@ const Payroll = () => {
               {payrollData.map((data, index) => (
                 <tr key={index}>
                   <td>{data.employee_name}</td>
-                  <td>£{data.pay_rate}</td>
+                  <td>₦{data.pay_rate}</td>
                   <td>{data.total_hours_worked.toFixed(2)}</td>
-                  <td>£{data.gross_pay.toFixed(2)}</td>
+                  <td>₦{data.gross_pay.toFixed(2)}</td>
                   <td>
                     <Form.Control
                       type="number"
@@ -212,8 +212,8 @@ const Payroll = () => {
                       onBlur={() => setPayrollData([...payrollData])}
                     />
                   </td>
-                  <td>£{data.tax.toFixed(2)}</td>
-                  <td>£{data.pension.toFixed(2)}</td>
+                  <td>₦{data.tax.toFixed(2)}</td>
+                  <td>₦{data.pension.toFixed(2)}</td>
                   <td>
                     <Form.Control
                       type="number"
@@ -222,16 +222,15 @@ const Payroll = () => {
                       onBlur={() => setPayrollData([...payrollData])}
                     />
                   </td>
-                  <td>£{data.net_pay.toFixed(2)}</td>
+                  <td>₦{data.net_pay.toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
           </Table>
-          <h2>Summary by Role</h2>
+          <h2>Payroll Summary</h2>
           <Table striped bordered hover className="mt-4">
             <thead>
               <tr>
-                <th>Role</th>
                 <th>Total Employees</th>
                 <th>Total Gross Pay</th>
                 <th>Total Tax</th>
@@ -241,11 +240,10 @@ const Payroll = () => {
             <tbody>
               {rolesSummary.map((summary, index) => (
                 <tr key={index}>
-                  <td>{summary.role}</td>
                   <td>{summary.totalEmployees}</td>
-                  <td>£{summary.totalGrossPay.toFixed(2)}</td>
-                  <td>£{summary.totalTax.toFixed(2)}</td>
-                  <td>£{summary.totalNetPay.toFixed(2)}</td>
+                  <td>₦{summary.totalGrossPay.toFixed(2)}</td>
+                  <td>₦{summary.totalTax.toFixed(2)}</td>
+                  <td>₦{summary.totalNetPay.toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>

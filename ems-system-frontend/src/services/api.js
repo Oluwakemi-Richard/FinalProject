@@ -35,8 +35,6 @@ api.interceptors.request.use(config => {
 }, error => {
   return Promise.reject(error);
 });
-
-// Add a response interceptor
 api.interceptors.response.use(response => {
   return response;
 }, error => {

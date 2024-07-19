@@ -5,20 +5,82 @@ import '../App.css';
 import api from '../services/api';
 
 const ViewShifts = () => {
+  // const [shifts, setShifts] = useState([]);
+  // const [tab, setTab] = useState('upcoming');
+
+  // const [employeeNumber, setEmployeeNumber] = useState('1003');
+
+  // useEffect(() => {
+  //   fetchShifts();
+  // }, [tab]);
+
+  // const fetchShifts = async () => {
+  //   try {
+  //     const endpoint = tab === 'upcoming' ? 'upcoming_shifts' : tab === 'ongoing' ? 'ongoing_shifts' : 'past_shifts';
+  //     const response = await api.get(`/api/shifts/${endpoint}`, {
+  //       params: { employee_number: employeeNumber }
+  //     });
+  //     setShifts(response.data);
+  //   } catch (error) {
+  //     console.error('Error fetching shifts:', error);
+  //   }
+  // };
+
+  // const handleCheckIn = async (shiftId) => {
+  //   try {
+  //     await api.put(`/api/attendances/${shiftId}/check_in`);
+  //     alert('Checked in successfully');
+  //     fetchShifts(); // Refresh the shifts to reflect the change
+  //   } catch (error) {
+  //     console.error('Error checking in:', error);
+  //   }
+  // };
+
+  // const handleCheckOut = async (shiftId) => {
+  //   try {
+  //     await api.put(`/api/attendances/${shiftId}/check_out`, { employee_number: employeeNumber });
+  //     alert('Checked out successfully');
+  //     fetchShifts(); // Refresh the shifts to reflect the change
+  //   } catch (error) {
+  //     console.error('Error checking out:', error);
+  //   }
+  // };
+
+  // const canCheckIn = (shift) => {
+  //   return !shift.checked_in && !shifts.some(s => s.id !== shift.id && s.checked_out);
+  // };
+
+  // const canCheckOut = (shift) => {
+  //   return shift.checked_in && !shifts.some(s => s.id !== shift.id && s.checked_in);
+  // };
   const [shifts, setShifts] = useState([]);
   const [tab, setTab] = useState('upcoming');
-  const [employeeNumber, setEmployeeNumber] = useState('1003');
-
+  const [employeeNumber, setEmployeeNumber] = useState('');
   useEffect(() => {
-    fetchShifts();
+    const fetchEmployeeNumber = async () => {
+      try {
+        const currentEmployeeResponse = await api.get('/api/current_employee', {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        });
+        const employeeNumber = currentEmployeeResponse.data.employee_number;
+        setEmployeeNumber(employeeNumber);
+        fetchShifts(employeeNumber);
+      } catch (error) {
+        console.error('Error fetching current employee:', error);
+      }
+    };
+
+    fetchEmployeeNumber();
   }, [tab]);
 
-  const fetchShifts = async () => {
+  const fetchShifts = async (employeeNumber) => {
     try {
+      console.log(employeeNumber)
       const endpoint = tab === 'upcoming' ? 'upcoming_shifts' : tab === 'ongoing' ? 'ongoing_shifts' : 'past_shifts';
       const response = await api.get(`/api/shifts/${endpoint}`, {
         params: { employee_number: employeeNumber }
       });
+      console.log(response.data);
       setShifts(response.data);
     } catch (error) {
       console.error('Error fetching shifts:', error);
@@ -29,7 +91,7 @@ const ViewShifts = () => {
     try {
       await api.put(`/api/attendances/${shiftId}/check_in`);
       alert('Checked in successfully');
-      fetchShifts(); // Refresh the shifts to reflect the change
+      fetchShifts(employeeNumber); // Refresh the shifts to reflect the change
     } catch (error) {
       console.error('Error checking in:', error);
     }
@@ -39,7 +101,7 @@ const ViewShifts = () => {
     try {
       await api.put(`/api/attendances/${shiftId}/check_out`, { employee_number: employeeNumber });
       alert('Checked out successfully');
-      fetchShifts(); // Refresh the shifts to reflect the change
+      fetchShifts(employeeNumber); // Refresh the shifts to reflect the change
     } catch (error) {
       console.error('Error checking out:', error);
     }

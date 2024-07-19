@@ -260,6 +260,7 @@ import Employees from './components/Employees';
 // import Logout from './components/Logout';
 import EmployeeRegistration from './components/EmployeeRegistration';
 import ProtectedRoute from './components/ProtectedRoute';
+import AuthRoutes from './components/AuthRoutes';
 import LandingPage from './pages/LandingPage';
 import Layout from './components/Layout';
 import Portal from './components/Portal';
@@ -331,6 +332,7 @@ const App = () => {
                 <Route path="/pending-leaves" element={<ProtectedRoute element={PendingLeaves} />} />
                 <Route path="/evaluation" element={<ProtectedRoute element={Evaluation} />} />
                 <Route path="/dashboard" element={<ProtectedRoute element={Dashboard} />} />
+                <Route path="/dashboard" element={<AuthRoutes><Dashboard /></AuthRoutes>} />
                 <Route path="/employees" element={<ProtectedRoute element={Employees} />} />
                 {/* <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} /> */}

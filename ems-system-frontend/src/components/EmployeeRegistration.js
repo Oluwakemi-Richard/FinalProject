@@ -1400,8 +1400,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { Form, Button, Table, Tabs, Tab } from 'react-bootstrap';
-import api from '../services/api'; // Import your api service
-import '../styles/Employees.css'; // Import the CSS file
+import api from '../services/api';
+import '../styles/Employees.css'; 
 
 const Employees = () => {
   const [view, setView] = useState('create');
@@ -1763,7 +1763,7 @@ return (
               )}
             </div>
             <div className="form-group">
-              <label htmlFor="salary">Salary</label>
+              <label htmlFor="salary">Rate/hr</label>
               <input
                 type="number"
                 id="salary"
@@ -1800,11 +1800,10 @@ return (
               Search
             </Button>
           </Form>
-          <div className="table-responsive"> {/* Added this wrapper for responsive table */}
+          <div className="table-responsive">
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>ID</th>
                   <th>Employee Number</th>
                   <th>Name</th>
                   <th>Position</th>
@@ -1823,7 +1822,6 @@ return (
               <tbody>
                 {employees.map(employee => (
                   <tr key={employee.id}>
-                    <td>{employee.id}</td>
                     <td>{employee.employee_number}</td>
                     <td>{employee.name}</td>
                     <td>{employee.position}</td>

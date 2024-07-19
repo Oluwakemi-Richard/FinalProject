@@ -89,13 +89,67 @@
 // };
 
 // export default LandingPage;
+// import React, { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// // import axios from 'axios';
+// import api from '../services/api';
+// import Login from '../components/Login';
+// import Register from '../components/Register';
+// import '../styles/LandingPage.css'; 
+
+// const LandingPage = () => {
+//   const [isLoggedIn, setIsLoggedIn] = useState(false);
+//   const [showLogin, setShowLogin] = useState(true);
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     // Check if the user is already logged in
+//     const token = localStorage.getItem('token');
+//     if (token) {
+//       api
+//         .get('/api/current_employee', {
+//           headers: { Authorization: `Bearer ${token}` },
+//         })
+//         .then(() => {
+//           setIsLoggedIn(true);
+//           navigate('/dashboard');
+//         })
+//         .catch(() => {
+//           setIsLoggedIn(false);
+//         });
+//     }
+//   }, [navigate]);
+
+//   const toggleForm = () => {
+//     setShowLogin(!showLogin);
+//   };
+
+//   if (isLoggedIn) {
+//     return <h1>Redirecting to dashboard...</h1>;
+//   }
+
+//   return (
+//     <div className="landing-page">
+//       <div className="form-container">
+//         {showLogin ? <Login /> : <Register />}
+//         {/* <p onClick={toggleForm}>
+//           {showLogin ? 'Don\'t have an account? Sign Up' : 'Already have an account? Sign In'}
+//         </p> */}
+//          <p onClick={toggleForm} style={{ cursor: 'pointer', textDecoration: 'underline', color: '#007bff' }}>
+//           {showLogin ? "Don't have an account? Sign Up" : 'Already have an account? Sign In'}
+//         </p>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default LandingPage;
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
 import api from '../services/api';
 import Login from '../components/Login';
 import Register from '../components/Register';
-import '../styles/LandingPage.css'; 
+import '../styles/LandingPage.css';
 
 const LandingPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -103,20 +157,24 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if the user is already logged in
     const token = localStorage.getItem('token');
-    if (token) {
-      api
-        .get('/api/current_employee', {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then(() => {
-          setIsLoggedIn(true);
+    const email = localStorage.getItem('email');
+    
+    if (token && email) {
+      api.get('/api/current_employee', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(() => {
+        setIsLoggedIn(true);
+        if (email === 'ade1111@gmail.com') {
           navigate('/dashboard');
-        })
-        .catch(() => {
-          setIsLoggedIn(false);
-        });
+        } else {
+          navigate('/employee-portal');
+        }
+      })
+      .catch(() => {
+        setIsLoggedIn(false);
+      });
     }
   }, [navigate]);
 
@@ -125,17 +183,14 @@ const LandingPage = () => {
   };
 
   if (isLoggedIn) {
-    return <h1>Redirecting to dashboard...</h1>;
+    return <h1>Redirecting...</h1>;
   }
 
   return (
     <div className="landing-page">
       <div className="form-container">
         {showLogin ? <Login /> : <Register />}
-        {/* <p onClick={toggleForm}>
-          {showLogin ? 'Don\'t have an account? Sign Up' : 'Already have an account? Sign In'}
-        </p> */}
-         <p onClick={toggleForm} style={{ cursor: 'pointer', textDecoration: 'underline', color: '#007bff' }}>
+        <p onClick={toggleForm} style={{ cursor: 'pointer', textDecoration: 'underline', color: '#007bff' }}>
           {showLogin ? "Don't have an account? Sign Up" : 'Already have an account? Sign In'}
         </p>
       </div>
@@ -144,3 +199,4 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
+
