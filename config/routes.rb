@@ -195,6 +195,8 @@ Rails.application.routes.draw do
     end
     get 'current_employee', to: 'employees#current_employee'
   end
+   # Root route
+  root to: 'home#index'
 end
 
 
